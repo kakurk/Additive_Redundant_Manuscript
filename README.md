@@ -4,7 +4,7 @@ Repository Home of the MemoLab's Additive Redundant Manuscript
 ## Analysis Steps
 
 Step 1: Extract ROI Data
-- Extract single trial estimates (SPM_T values from a multi-model single trial estimate analysis, see Mumford et al. 2012; https://github.com/ritcheym/fmri_misc/blob/master/generate_spm_singletrial.m) from PM Network ROIs (see Cooper, Kurkela, Davis, & Ritchey 2021; https://github.com/memobc/paper-camcan-pmn/tree/master/rois)
+- Extract single trial estimates (SPM_T values from a multi-model single trial estimate analysis, see Mumford et al. 2012; [Maureen Ritchey's Generate SPM Single Trial](https://github.com/ritcheym/fmri_misc/blob/master/generate_spm_singletrial.m)) from PM Network ROIs (see Cooper, Kurkela, Davis, & Ritchey 2021; [Publically Available ROIs](https://github.com/memobc/paper-camcan-pmn/tree/master/rois))
 - Assumes ROIs are stored in a local directory: ``
 - Assumes single-trial estimates are stored in a local directory: ``
 
