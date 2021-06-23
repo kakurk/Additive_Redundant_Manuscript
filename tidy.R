@@ -97,6 +97,8 @@ betas.df <- left_join(betas.df, behav.df,
                              'sess' = 'Run', 
                              'ons' = 'onsetRemember'))
 
+# select only the variables of interest; make SceQuality and ColQuality binary; coerce
+# subject to be numeric
 betas.df <- betas.df %>%
             select(subject, pHipp:pAG, SceQuality, ColQuality, EmotionCorrect) %>%
 	    mutate(ColQuality = as.double(ColQuality > 0), SceQuality = as.double(SceQuality > 0)) %>%
@@ -106,5 +108,4 @@ betas.df <- betas.df %>%
 # write -------------------------------------------------------------------
 
 cat('Writing:\n')
-
 write_delim(betas.df, 'tidy_roi_data.dat', col_names = F)
