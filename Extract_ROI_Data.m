@@ -1,19 +1,21 @@
 % Extract single trial estimates from select ROIs. Write output to a csv file for further analysis
 
+root = fileparts(mfilename('fullfile'));
+
 % add spm12 to searchpath
-spm_dir = fullfile(fileparts(mfilename('fullfile')), 'spm12');
+spm_dir = fullfile(root, 'spm12');
 addpath(spm_dir);
 
 %% Parameters
 
-roi_dir = '/gsfs0/data/kurkela/Desktop/Masters/rois';
+roi_dir = fullfile(root, 'rois');
 roi_file = 'PM_voxel_clusters.nii'; % single .nii file. contains all ROIs for analysis
 roi_full_file = fullfile(roi_dir, roi_file);
 
 PM_rois_names = {'pHipp' 'PREC', 'PCC', 'MPFC', 'PHC', 'RSC', 'aAG', 'pAG'};
 PM_rois_indx = cell(1,length(PM_rois_names));
 
-singleTrialEst_dir = fullfile(fileparts(mfilename('fullfile')), 'st_estimates');
+singleTrialEst_dir = fullfile(root, 'st_estimates');
 
 %% Routine
 
