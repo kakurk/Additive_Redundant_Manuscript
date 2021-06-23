@@ -4,26 +4,23 @@ Repository Home of the MemoLab's Additive Redundant Manuscript
 ## Analysis Steps
 
 Step 1: Extract ROI Data
-- Extract single trial estimates (SPM_T values from a multi-model single trial estimate analysis, see Mumford et al. 2012; [Maureen Ritchey's Generate SPM Single Trial](https://github.com/ritcheym/fmri_misc/blob/master/generate_spm_singletrial.m)) from PM Network ROIs (see Cooper, Kurkela, Davis, & Ritchey 2021; [Publically Available ROIs](https://github.com/memobc/paper-camcan-pmn/tree/master/rois))
-- Assumes ROIs are stored in a local directory: ``
-- Assumes single-trial estimates are stored in a local directory: `./st_estimates/`
-
-`Extract_ROI_data.m`  
-`Extracted_ROI_data.csv`  
+- Extract single trial estimates (SPM_T values from a multi-model single trial estimate analysis, see Mumford et al. 2012; [Maureen Ritchey's Generate SPM Single Trial](https://github.com/ritcheym/fmri_misc/blob/master/generate_spm_singletrial.m)) from PM Network ROIs (see Cooper, Kurkela, Davis, & Ritchey 2021; [Publically Available ROIs](https://github.com/memobc/paper-camcan-pmn/tree/master/rois))  
+- Assumes ROIs are stored in a local directory: `./rois/`  
+- Assumes single-trial estimates are stored in a local directory: `./st_estimates/`  
+- See: `Extract_ROI_data.m`  
+- See: `Extracted_ROI_data.csv`  
 
 Step 2: Tidy Data
-- Take Extracted Single Trial Estimates and appends behavioral data 'tidying' the data along the way
-- Assumes behavioral data are stored in a local directory: ``
-
-`tidy.R`  
+- Take Extracted Single Trial Estimates and appends behavioral data 'tidying' the data along the way  
+- Assumes behavioral data are stored in a local directory: ``  
+- See: `tidy.R`  
 
 Step 3: Visualize
-- Take tidy data and print a correlation matrix of variables of interest
-
-`visualize.R`  
+- Take tidy data and print a correlation matrix of variables of interest  
+- See: `visualize.R`  
 
 Step 4: MPLUS Modeling
-- Run a series of SEM models in MPLUS. See README in `./mplus/`
+- Run a series of SEM models in MPLUS. See README in `./mplus/`  
 
 
 # Refrences
