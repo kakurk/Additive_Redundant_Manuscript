@@ -1,0 +1,20 @@
+TITLE: Within Measurement Model -- One Latent Factor
+DATA: FILE is MastersData_Select_full.dat;
+VARIABLE:
+  NAMES are subj ColErr SceErr EmoCorr ANG PREC RSC HIPP PCC PHC;
+  USEVARIABLES are subj ColErr SceErr EmoCorr;
+  CATEGORICAL = ColErr SceErr EmoCorr;
+  CLUSTER = subj;
+ANALYSIS: 
+TYPE = TWOLEVEL;
+ESTIMATOR=MLR;
+INTEGRATION=5;
+MODEL:
+%WITHIN%
+MemQ BY ColErr SceErr EmoCorr;
+%BETWEEN%
+ColErr-EmoCorr;
+ColErr WITH SceErr EmoCorr;
+SceErr WITH EmoCorr;
+Output:
+stdyx modindices;

@@ -1,0 +1,38 @@
+TITLE: Measurement Model -- Testing for Crosslevel Invariance
+DATA: FILE is tidy_roi_data.dat;
+VARIABLE:
+  NAMES are subject pHipp PREC PCC MPFC PHC RSC aAG pAG SceCorr ColCorr EmoCorr;
+  USEVARIABLES are subject pHipp PREC PCC MPFC PHC RSC aAG pAG;
+  CLUSTER = subject;
+ANALYSIS: 
+TYPE = TWOLEVEL;
+ESTIMATOR = MLR;
+MODEL:
+%WITHIN%
+PMN BY pHipp(1)
+PREC (2)
+PCC (3)
+MPFC (4)
+PHC (5)
+RSC (6)
+aAG (7)
+pAG (8);
+%BETWEEN%
+PMNb BY pHipp(1)
+PREC (2)
+PCC (3)	
+MPFC (4) 
+PHC (5)	
+RSC (6)	
+aAG (7)	
+pAG (8);
+pHipp 
+PREC 
+PCC 
+MPFC 
+PHC 
+RSC 
+aAG 
+pAG 
+Output:
+stdyx modindices;
