@@ -11,17 +11,23 @@ ESTIMATOR = WLSMV;
 MODEL:
 %WITHIN%
 PMN BY pHipp-pAG;
-MemQ BY SceCorr ColCorr EmoCorr;
+MemQ BY SceCorr (1) 
+ColCorr (2) 
+EmoCorr (3);
 pAG WITH MPFC;
 %BETWEEN%
-pHipp-EmoCorr;
-pHipp WITH pHipp-EmoCorr;
-PREC WITH pHipp-EmoCorr;
-PCC WITH pHipp-EmoCorr;
-MPFC WITH pHipp-EmoCorr;
-PHC WITH pHipp-EmoCorr;
-RSC WITH pHipp-EmoCorr;
-aAG WITH pHipp-EmoCorr;
-pAG WITH pHipp-EmoCorr;
+MemQb BY SceCorr (1)
+ColCorr (2)
+EmoCorr (3);
+pHipp-pAG;
+pHipp WITH pHipp-pAG;
+PREC WITH pHipp-pAG;
+PCC WITH pHipp-pAG;
+MPFC WITH pHipp-pAG;
+PHC WITH pHipp-pAG;
+RSC WITH pHipp-pAG;
+aAG WITH pHipp-pAG;
+pAG WITH pHipp-pAG;
+MemQb WITH pHIPP-pAG;
 Output:
-stdyx;
+sampstat stdyx;
