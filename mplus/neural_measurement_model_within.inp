@@ -12,14 +12,13 @@ MODEL:
 PMN BY pHipp-pAG;
 pAG WITH MPFC;
 %BETWEEN%
-pHipp-pAG;
-pHipp WITH pHipp-pAG;
-PREC WITH pHipp-pAG;
-PCC WITH pHipp-pAG;
-MPFC WITH pHipp-pAG;
-PHC WITH pHipp-pAG;
-RSC WITH pHipp-pAG;
-aAG WITH pHipp-pAG;
-pAG WITH pHipp-pAG;
+pHipp@0
+PREC-pAG;
+PREC WITH PCC-pAG;
+PCC WITH MPFC-pAG;
+MPFC WITH PHC-pAG;
+PHC WITH RSC-pAG;
+RSC WITH aAG pAG;
+aAG WITH pAG;
 Output:
-stdyx modindices;
+sampstat modindices;
