@@ -17,8 +17,7 @@ EmoCorr (3);
 pAG WITH MPFC;
 MemQ ON PMN 
 MPFC (uMPFC)
-PHC (uPHC)
-PREC (uPREC);
+PHC (uPHC);
 %BETWEEN%
 MemQb BY SceCorr (1)
 ColCorr (2)
@@ -34,6 +33,6 @@ aAG WITH pHipp-pAG;
 pAG WITH pHipp-pAG;
 MemQb WITH pHIPP-pAG;
 model test:
-uPREC = 0;
+uPHC = 0;
 Output:
 stdyx;
