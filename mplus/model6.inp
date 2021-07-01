@@ -15,7 +15,8 @@ MemQ BY SceCorr (1)
 ColCorr (2) 
 EmoCorr (3);
 pAG WITH MPFC;
-MemQ ON PMN RSC;
+MemQ ON PMN 
+RSC (uRSC);
 %BETWEEN%
 MemQb BY SceCorr (1)
 ColCorr (2)
@@ -30,5 +31,7 @@ RSC WITH pHipp-pAG;
 aAG WITH pHipp-pAG;
 pAG WITH pHipp-pAG;
 MemQb WITH pHIPP-pAG;
+model test:
+uRSC = 0;
 Output:
 stdyx;

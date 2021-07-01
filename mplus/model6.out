@@ -1,6 +1,6 @@
 Mplus VERSION 8.2 (Linux)
 MUTHEN & MUTHEN
-07/01/2021  12:43 PM
+07/01/2021   1:49 PM
 
 INPUT INSTRUCTIONS
 
@@ -21,7 +21,8 @@ INPUT INSTRUCTIONS
   ColCorr (2)
   EmoCorr (3);
   pAG WITH MPFC;
-  MemQ ON PMN RSC;
+  MemQ ON PMN
+  RSC (uRSC);
   %BETWEEN%
   MemQb BY SceCorr (1)
   ColCorr (2)
@@ -36,6 +37,8 @@ INPUT INSTRUCTIONS
   aAG WITH pHipp-pAG;
   pAG WITH pHipp-pAG;
   MemQb WITH pHIPP-pAG;
+  model test:
+  uRSC = 0;
   Output:
   stdyx;
 
@@ -187,6 +190,12 @@ Chi-Square Test of Model Fit
     for chi-square difference testing in the regular way.  MLM, MLR and WLSM
     chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
     and ULSMV difference testing is done using the DIFFTEST option.
+
+Wald Test of Parameter Constraints
+
+          Value                              1.371
+          Degrees of Freedom                     1
+          P-Value                           0.2416
 
 RMSEA (Root Mean Square Error Of Approximation)
 
@@ -525,9 +534,9 @@ QUALITY OF NUMERICAL RESULTS
        (ratio of smallest to largest eigenvalue)
 
 
-     Beginning Time:  12:43:52
-        Ending Time:  12:44:18
-       Elapsed Time:  00:00:26
+     Beginning Time:  13:49:15
+        Ending Time:  13:49:40
+       Elapsed Time:  00:00:25
 
 
 
