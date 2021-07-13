@@ -15,7 +15,8 @@ dPMN BY MPFC pHIPP PREC PCC aAG;
 MemQ BY SceCorr (1) 
 ColCorr (2) 
 EmoCorr (3);
-MemQ ON vPMN dPMN PCC;
+MemQ ON vPMN dPMN 
+PCC (uPCC);
 %BETWEEN%
 pHipp-EmoCorr;
 MemQb BY SceCorr (1)
@@ -29,4 +30,6 @@ PHC WITH RSC-pAG;
 RSC WITH aAG pAG;
 aAG WITH pAG;
 MemQb WITH pHIPP-pAG;
+model test:
+uPCC = 0;
 Output: stdyx
