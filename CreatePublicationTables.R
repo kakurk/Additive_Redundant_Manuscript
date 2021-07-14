@@ -11,6 +11,34 @@ M <- readModels(target = file.path(getwd(), 'mplus'))
 
 # Create Fit Statistics Tables --------------------------------------------
 
+### No Resid Cov
+
+# A summary of model fit statistics
+map_dfr(M, ~.x$summaries) %>% 
+  as_tibble() %>%
+  filter(str_detect(Filename, '^noresidcov_model[0-8]\\.out')) %>%
+  select(Title, ChiSqM_Value, ChiSqM_DF, ChiSqM_PValue, WaldChiSq_Value, WaldChiSq_DF, WaldChiSq_PValue, CFI, TLI, RMSEA_Estimate, SRMR.Within, SRMR.Between) %>%
+  mutate(ChiSqM_PValue = format.pval(ChiSqM_PValue, eps = .001)) %>%
+  mutate(`Chi-square` = str_glue('{ChiSqM_Value} ({ChiSqM_DF}), p: {ChiSqM_PValue}')) %>%
+  mutate(WaldChiSq_PValue = p.adjust(WaldChiSq_PValue, method = 'bonferroni')) %>%
+  mutate(WaldChiSq_PValue = format.pval(WaldChiSq_PValue, eps = .001, digits = 2)) %>%
+  mutate(`Wald's Test` = str_glue('{WaldChiSq_Value} ({WaldChiSq_DF}), p: {WaldChiSq_PValue}')) %>%
+  mutate(`Wald's Test` = case_when(Title == 'Model 0: Redundancy' ~ NA_character_,
+                                   TRUE ~ as.character(`Wald's Test`))) %>%
+  mutate(modNum = as.double(str_extract(Title, '[0-9]{1,2}'))) %>%
+  arrange(modNum) %>%
+  select(Title, `Chi-square`, `Wald's Test`, everything(), -starts_with('ChiSq'), -starts_with('WaldChi'), -modNum) -> summary.tbl
+
+# print the table nicely in R viewer
+col_names <- c('Title', 'Chi-square', paste0("Wald's Test", footnote_marker_alphabet(1)), "CFI", "TLI", "RMSEA_Estiate", "SRMR.Within", "SRMR.Between")
+
+summary.tbl %>%
+  magrittr::set_colnames(col_names) %>%  
+  kable(caption = 'Table X: Model Comparisons', escape = F) %>%
+  kable_classic() %>%
+  footnote(alphabet = c("All Wald's Tests test the constraint that the unique path for the given ROI to 0."))
+
+
 ### Single Factor Models
 
 # A summary of model fit statistics
