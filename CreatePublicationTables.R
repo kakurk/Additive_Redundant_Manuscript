@@ -108,46 +108,42 @@ createParamTbl <- function(x){
   # 2.) perfoms minor tidying by filtering out the between parameter estimates,
   # removing the est_se column, and formating the pval column
   # 3.) joins the two data.frames together
-  
-  # x$parameters$unstandardized %>%
-  #   as_tibble() %>%
-  #   select(-est_se) %>%
-  #   mutate(pval = format.pval(pval, eps = .001)) -> unstand
-  
+
+  x$parameters$unstandardized %>%
+    as_tibble() %>%
+    select(-est_se) %>%
+    mutate(pval = format.pval(pval, eps = .001)) -> unstand
+
   x$parameters$stdyx.standardized %>%
     as_tibble() %>%
     select(-est_se) %>%
     mutate(pval = format.pval(pval, eps = .001)) %>%
     select(BetweenWithin, everything()) -> stand
   
-  return(stand)
+  left_join(unstand, stand, by = c('paramHeader', 'param', 'BetweenWithin'), suffix = c('.unstand', '.stand'))
 
 }
 
-col_names <- c('paramHeader', 'param', 'est', 'se', 'pval')
+col_names <- c('level', 'paramHeader', 'param', 'est', 'se', 'pval', 'est', 'se', 'pval')
 
 # Joint Measurement Model
 
 createParamTbl(M$joint_measurement_model.out) %>%
-  filter(BetweenWithin == 'Within') %>%
-  filter(str_detect(paramHeader, '(\\.BY)|(\\.WITH)')) %>%
-  select(-BetweenWithin) -> joint_measure_param_tbl
+  select(BetweenWithin, everything()) -> joint_measure_param_tbl
 
 # print the table nicely in R viewer
 joint_measure_param_tbl %>%
-  kable(caption = 'Table 1: Measurement Model Standardized Parameter Estimates', col.names = col_names) %>%
+  kable(caption = 'Table 1: Measurement Model Parameter Estimates', col.names = col_names) %>%
   kable_classic() %>%
   footnote(general = 'Parameter headers follows standard Mplus syntax. Parameters set to a value follow Mplus standards, reporting the value the parameter was set to as the estimate, the standard error set to 0.000, and the pval set to 999.000. See Halquist & Wiley (2018) for more information. param = parameter, est = estimate, se = standard error, pval = p value. PMN = Posterior Medial Network, MEMQ = Memory Quality, PHIPP = posterior hippocampus, PREC = precuneus, PCC = posterior cingulate cortex, MPFC = medial prefrontal cortex, PHC = parahippocampal cortex, RSC = retrosplenial cortex, AAG = anterior angular gyrus, PAG = posterior angular gyrus, SCECORR = scene feature correct, COLCORR = color feature correct, EMOCORR = emotional sound feature correct.')
 
 # write to csv
-write_csv(x = joint_measure_param_tbl, 'joint_measure_param_tbl.csv')
+write_csv(x = joint_measure_param_tbl, 'supplemental_table_joint_measure_param_tbl.csv')
 
-# Joint Bifactor Measurement Model
+# Joint Two Factor Measurement Model
 
-createParamTbl(M$alternate_model0.out) %>%
-  filter(BetweenWithin == 'Within') %>%
-  filter(str_detect(paramHeader, 'Variances', negate = T)) %>%
-  select(-BetweenWithin) -> alternate_joint_measure_param_tbl
+createParamTbl(M$alternate_joint_model.out) %>%
+  select(BetweenWithin, everything()) -> alternate_joint_measure_param_tbl
 
 # print the table nicely in R viewer
 alternate_joint_measure_param_tbl %>%
@@ -156,4 +152,36 @@ alternate_joint_measure_param_tbl %>%
   footnote(general = 'Parameter headers follows standard Mplus syntax. Parameters set to a value follow Mplus standards, reporting the value the parameter was set to as the estimate, the standard error set to 0.000, and the pval set to 999.000. See Halquist & Wiley (2018) for more information. param = parameter, est = estimate, se = standard error, pval = p value. PMN = Posterior Medial Network, MEMQ = Memory Quality, PHIPP = posterior hippocampus, PREC = precuneus, PCC = posterior cingulate cortex, MPFC = medial prefrontal cortex, PHC = parahippocampal cortex, RSC = retrosplenial cortex, AAG = anterior angular gyrus, PAG = posterior angular gyrus, SCECORR = scene feature correct, COLCORR = color feature correct, EMOCORR = emotional sound feature correct.')
 
 # write to csv
-write_csv(x = alternate_joint_measure_param_tbl, 'bifactor_model0_param_tbl.csv')
+write_csv(x = alternate_joint_measure_param_tbl, 'twofactor_model_param_tbl.csv')
+
+# Create Communality Tables
+
+createCommunTbl <- function(x){
+  # function that 
+  # 1.) extracts the unstandardized and standardized parameter estimates
+  # from a mplus.model.list object created by MplusAutomation::readModels() 
+  # 2.) perfoms minor tidying by filtering out the between parameter estimates,
+  # removing the est_se column, and formating the pval column
+  # 3.) joins the two data.frames together
+  
+  x$parameters$r2 %>%
+    as_tibble() %>%
+    mutate(pval = format.pval(pval, eps = .001)) %>%
+    select(-BetweenWithin)
+  
+}
+
+createCommunTbl(M$neural_measurement_model_within.out) -> SingleFactor
+
+createCommunTbl(M$alternate_measurement_model_within.out) -> TwoFactor
+
+left_join(SingleFactor, TwoFactor, by = c('param'), suffix = c('.SingleFactor', '.TwoFactor')) -> JointTbl
+
+col_names <- c('param', 'est', 'se', 'est_se', 'pval', 'est', 'se', 'est_se', 'pval')
+
+JointTbl %>%
+  kable(caption = 'Table X: Communality Values', escape = F, col.names = col_names) %>%
+  kable_classic() %>%
+  add_header_above(c(" " = 1, "Single Factor" = 4, "Two Factor" = 4))
+
+write_csv(JointTbl, path = 'CommunalityValues.csv')
