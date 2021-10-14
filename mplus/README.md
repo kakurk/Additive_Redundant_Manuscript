@@ -1,43 +1,28 @@
 ## MPLUS Modeling
 
-This directory contains data and syntax files for all SEM run for the Additive Redundant Manuscript. The analysis Proceeds in the following order:
+This directory contains data and syntax files for running all SEMs in MPLUS. See [MPLUS documentation](http://www.statmodel.com/) for more information on the syntax. The files are organized as follows:  
 
-Step 1: Determining the Necessity of Multilevel Modeling
-- Following the method of Jak et al. 2013, a series of models were run to determine if multilevel modeling was necessary for our data.
-  -  Two "null" models were run: the first testing whether a completely zero variance/covariance model fits the between subjects (level 2) data and the second testing whether a compeltely zero covariance matrix (i.e., freely estimating variance) model fits the between subjects (level 2) data
-- "Null" modeling was run seperately for the neural data and the behavioral data.  
-**Neural Data**  
-- See: `neural_null_between_model.inp` and `neural_null_between_model.out`  
-- See: `neural_null_between_model_cov.inp` and `neural_null_between_model_cov.out`  
-**Behavioral Data**  
-- See: `behav_null_between_model.inp` and `behav_null_between_model.out`  
-- See: `behav_null_between_cov.inp` and `behav_null_between_cov.out`  
+`data-{DATA}_modelType-{MODELTYPE}_measureModel-{MEASUREMODEL}_model-{MODELNAME}.inp`  
+`data-{DATA}_modelType-{MODELTYPE}_measureModel-{MEASUREMODEL}_model-{MODELNAME}.out`  
 
-Step 2: Determine if crosslevel invariance holds
-- Following the methodology of Jak et al. 2013
-- Fitting a model with the same measurement model at level 1 and level 2 with zero residual variance at level 2 AND the loadings fixed to be equal across levels  
-**Neural Data**  
-- See: `neural_crosslevel_invariance.inp` and `neural_crosslevel_invariance.out`  
-**Behavioral Data**  
-- See: `behav_crosslevel_invariance.inp` and `behav_crosslevel_invariance.out`  
+- _DATA_: can take on the values `behav`, `neural`, or `all` depending on the subset of data that is included in the model  
+- _MODELTYPE_: can take on the values `null`, `Measurement`, `Structural`  
+- _MEASUREMODEL_: can take on the values `null`, `SingleFactor`, `SingleFactor_NoResidCov`, `TwoFactor`, or `MetricInvariance`  
+- _MODELNAME_: an additional, short descriptor to differentiate models. See below for more information.  
 
-Step 3: Fit an appropriate measurement model
-- Following the methodology of Bolt et al. 2018, find an appropriate measurement model
-- I fit a measurement model for the neural and beahvioral data seperately, then combined them into a joint model  
-**Neural**
-- See: `neural_measurement_model_within.inp` and `neural_measurement_model_within.out`  
-**Behavioral**
-- See: `behav_measurement_model.inp` and `behav_measurement_model.out`  
-**Joint**
-- See: `joint_measurement_model.inp` and `joint_measurement_model.out`  
+Model Name Long Descriptions:  
 
-Step 4: Determine if any of the PM Network nodes have unique information with respect to Memory Quality  
-- Following the methodology of Bolt et al. 2018  
-- Each ROI was tested for unique information by first fitting a "baseline" structural model (`Model 0`) and comparing various nested models to this baseline model (`Models 1-8`). Statistical significance was determined via a likelihood ratio test.  
-- See `model0.out`, `model1.out`, `model2.out`, `model3.out`, `model4.out`, `model5.out`, `model6.out`, `model7.out`, `model8.out`  
-
-# References
-
-Bolt, T., Prince, E. B., Nomi, J. S., Messinger, D., Llabre, M. M., & Uddin, L. Q. (2018). Combining region- and network-level brain-behavior relationships in a structural equation model. NeuroImage, 165, 158–169. https://doi.org/10.1016/j.neuroimage.2017.10.007  
-
-Jak, S., Oort, F. J., & Dolan, C. V. (2013). A Test for Cluster Bias: Detecting Violations of Measurement Invariance Across Clusters in Multilevel Data. Structural Equation Modeling: A Multidisciplinary Journal, 20(2), 265–282. https://doi.org/10.1080/10705511.2013.769392  
+- `Model0`: a "baseline" structural model, containing a structural path from the neural latent variable(s) to the behavioral latent variable.  
+- `Model0vPMN`: in the TwoFactor model only, this model refers to one where the only structural path is from the __vPMN__ latent variable --> __MemoryQuality__.  
+- `Model0dPMN`: in the TwoFactor model only, this model refers to one where the only structural path is from the __dPMN__ latent variable --> __MemoryQuality__.  
+- `Model1`: contains all of the paths from `Model0`, with the addition of a unique path from the __HIPP__ --> __MemoryQuality__  
+- `Model2`: contains all of the paths from `Model0`, with the addition of a unique path from the __PREC__ --> __MemoryQuality__  
+- `Model3`: contains all of the paths from `Model0`, with the addition of a unique path from the __PCC__ --> __MemoryQuality__  
+- `Model4`: contains all of the paths from `Model0`, with the addition of a unique path from the __MPFC__ --> __MemoryQuality__  
+- `Model5`: contains all of the paths from `Model0`, with the addition of a unique path from the __PHC__ --> __MemoryQuality__  
+- `Model6`: contains all of the paths from `Model0`, with the addition of a unique path from the __RSC__ --> __MemoryQuality__  
+- `Model7`: contains all of the paths from `Model0`, with the addition of a unique path from the __aAG__ --> __MemoryQuality__  
+- `Model8`: contains all of the paths from `Model0`, with the addition of a unique path from the __pAG__ --> __MemoryQuality__  
+- `Model9`: contains all of the paths from `Model0`, with the addition of a unique path from the __MPFC__ --> __MemoryQuality__  AND __PHC__ --> __MemoryQuality__  
+- `Attempt1`: refers to the first attempt of the SingleFactor measurement model (i.e., before adding in the additional residual covariance parameter)  
+- `Final`: refers to the final SingleFactor measurement model (i.e., the one that contains the residual covariance parameter)  
