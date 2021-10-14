@@ -12,7 +12,9 @@ MODEL:
 %WITHIN%
 vPMN BY RSC PHC pAG;
 dPMN BY MPFC pHIPP PREC PCC aAG;
-MemQ BY SceCorr ColCorr EmoCorr;
+MemQ BY SceCorr (1)
+ColCorr (2)
+EmoCorr (3);
 %BETWEEN%
 pHipp-EmoCorr;
 MemQb BY SceCorr (1)
