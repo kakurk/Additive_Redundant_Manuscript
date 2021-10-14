@@ -1,7 +1,7 @@
 # Additive_Redundant_Manuscript
 Repository Home of the MemoLab's Additive Redundant Manuscript.
 
-The repository follows the [tidyverse's style guide](https://style.tidyverse.org/index.html).
+This repository tries to follow the [tidyverse's style guide](https://style.tidyverse.org/index.html) and [BIDS formatting](https://bids.neuroimaging.io/)  
 
 ## Directories
 
@@ -26,11 +26,17 @@ Step 2: Tidy Data
 
 Step 3: Visualize
 - Take tidy data and print a correlation matrix of variables of interest  
-- See: `visualize.R`  
+- Additionally writes a csv of the data contained in Table 1 of the manuscript.  
+- See: `03_visualize.R`  
 
 Step 4: MPLUS Modeling
 - Run a series of SEM models in MPLUS. See README in `mplus/`  
 
+Step 5: Create Publication Tables
+- After running the MPLUS models, the script automates extracting the results from the MPLUS output files (`*.out`) and writes the results to be formatted for publication.  
+- Additionally calculate a Satorra Bentler Chi Squared Difference Test.  
+- See: `05_CreatePublicationTables.R`  
+- See: `05_SatorraBentler_ChiSqDiffTest.R`  
 
 # References
 
