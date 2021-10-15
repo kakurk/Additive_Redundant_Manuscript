@@ -77,7 +77,7 @@ ModelComp_col_names <- c("Title", "Chi-square", paste0("Wald's Test", footnote_m
 # No Residual Covariance -- Model Comparisons -----------------------------
 
 model_summaries %>%
-  filter(str_detect(Filename, "^noresidcov_model[0-8]\\.out")) %>%
+  filter(str_detect(Filename, "SingleFactor_NoResidCov")) %>%
   createModelCompTbl(Model1Title = "Model 0: Redundancy") -> no_resid_cov_summary_tbl
 
 # print the summary table nicely in R viewer
@@ -93,7 +93,7 @@ write_csv(x = no_resid_cov_summary_tbl, path = "intermediate/05_type-ModelCompar
 
 # A summary of model fit statistics
 model_summaries %>%
-  filter(str_detect(Filename, "^model[0-8]\\.out")) %>%
+  filter(str_detect(Filename, "SingleFactor_modelName-Model[0-8]")) %>%
   createModelCompTbl(Model1Title = "Model 0: Redundancy") -> single_factor_summary_tbl
 
 single_factor_summary_tbl %>%
@@ -108,7 +108,7 @@ write_csv(x = single_factor_summary_tbl, path = "intermediate/05_type-ModelCompa
 
 # A summary of model fit statistics
 model_summaries %>%
-  filter(str_detect(Filename, "^alternate_model[0-8]\\.out")) %>%
+  filter(str_detect(Filename, "TwoFactor_modelName-Model[0-8].out")) %>%
   createModelCompTbl(Model1Title = "Bifactor Model 0: Both Subnetworks -> MemQ") -> bifactor_summary_tbl
 
 # print the table nicely in R viewer
@@ -119,11 +119,11 @@ bifactor_summary_tbl %>%
   footnote(alphabet = c("All Wald's Tests test the constraint that the unique path for the given ROI to 0."))
 
 # write to a csv file
-write_csv(x = bifactor_summary_tbl, path = "intermediate/05_type-ModelComparisons_model-Bifactor_tbl.csv")
+write_csv(x = bifactor_summary_tbl, path = "intermediate/05_type-ModelComparisons_model-TwoFactor_tbl.csv")
 
 # Single Factor Measurement Model -- Parameters ---------------------------
 
-createParamTbl(M$joint_measurement_model.out) -> joint_measure_param_tbl
+createParamTbl(M$data.all_modelType.Measurement_measureModel.SingleFactor.out) -> joint_measure_param_tbl
 
 # print the table nicely in R viewer
 col_names <- c("level", "paramHeader", "param", "est", "se", "pval", "est", "se", "pval")
@@ -137,7 +137,7 @@ write_csv(x = joint_measure_param_tbl, "intermediate/05_type-Parameters_model-Si
 
 # Two Factor Measurement Model -- Parameters ------------------------------
 
-createParamTbl(M$alternate_joint_model.out) -> alternate_joint_measure_param_tbl
+createParamTbl(M$data.all_modelType.Measurement_measureModel.TwoFactor.out) -> alternate_joint_measure_param_tbl
 
 # print the table nicely in R viewer
 col_names <- c("level", "paramHeader", "param", "est", "se", "pval", "est", "se", "pval")
@@ -147,13 +147,13 @@ alternate_joint_measure_param_tbl %>%
   footnote(general = "Parameter headers follows standard Mplus syntax. Parameters set to a value follow Mplus standards, reporting the value the parameter was set to as the estimate, the standard error set to 0.000, and the pval set to 999.000. See Halquist & Wiley (2018) for more information. param = parameter, est = estimate, se = standard error, pval = p value. PMN = Posterior Medial Network, MEMQ = Memory Quality, PHIPP = posterior hippocampus, PREC = precuneus, PCC = posterior cingulate cortex, MPFC = medial prefrontal cortex, PHC = parahippocampal cortex, RSC = retrosplenial cortex, AAG = anterior angular gyrus, PAG = posterior angular gyrus, SCECORR = scene feature correct, COLCORR = color feature correct, EMOCORR = emotional sound feature correct.")
 
 # write to csv
-write_csv(x = alternate_joint_measure_param_tbl, "intermediate/05_type-Parameters_model-BifactorMeasurement_tbl.csv")
+write_csv(x = alternate_joint_measure_param_tbl, "intermediate/05_type-Parameters_model-TwoFactorMeasurement_tbl.csv")
 
 # Communality Table -------------------------------------------------------
 
-createCommunTbl(M$neural_measurement_model_within.out) -> SingleFactor
+createCommunTbl(M$data.neural_modelType.Measurement_measureModel.SingleFactor_modelName.Final.out) -> SingleFactor
 
-createCommunTbl(M$alternate_measurement_model_within.out) -> TwoFactor
+createCommunTbl(M$data.neural_modelType.Measurement_measureModel.TwoFactor.out) -> TwoFactor
 
 left_join(SingleFactor, TwoFactor, by = c("param"), suffix = c(".SingleFactor", ".TwoFactor")) -> JointTbl
 
