@@ -17,13 +17,13 @@ PM_rois_names = {'pHipp' 'PREC', 'PCC', 'MPFC', 'PHC', 'RSC', 'aAG', 'pAG'};
 n_rois        = length(PM_rois_names);
 PM_rois_indx  = cell(1, n_rois);
 
-single_trial_est_dir = fullfile(root, 'st_estimates');
+single_trial_est_dir = fullfile(root, 'st_estimates_4s');
 
 %% Routine
 
 % relice ROIs
-first_sub_first_st_est_dir = fullfile(single_trial_est_dir, 'sub-s001', 'spmTs');
-ref = spm_select('FPList', first_sub_first_st_est_dir, 'Sess01_Remember_001_T.nii');
+first_sub_first_st_est_dir = fullfile(single_trial_est_dir, 'sub-s002', 'Ts');
+ref = spm_select('FPList', first_sub_first_st_est_dir, 'Sess01_Retrieval_001_T.nii');
 matlabbatch{1}.spm.spatial.coreg.write.ref             = {ref};
 matlabbatch{1}.spm.spatial.coreg.write.source          = {roi_full_file};
 matlabbatch{1}.spm.spatial.coreg.write.roptions.interp = 4;
@@ -38,9 +38,9 @@ ROIs_V                 = spm_vol(resliced_roi_full_file);
 [ROIs_Y, ROIs_XYZmm]   = spm_read_vols(ROIs_V);
 
 % specify single trial estimates
-st_estimate_files = cellstr(spm_select('FPListRec', single_trial_est_dir, '.*Remember.*_T\.nii'));
+st_estimate_files = cellstr(spm_select('FPListRec', single_trial_est_dir, '.*Retrieval.*_T\.nii'));
 st_estimate_mats  = cellstr(spm_select('FPListRec', single_trial_est_dir, 'SPM.mat'));
-st_estimate_mats  = st_estimate_mats(contains(st_estimate_mats, 'Remember'));
+st_estimate_mats  = st_estimate_mats(contains(st_estimate_mats, 'Retrieval'));
 
 assert(length(st_estimate_files) == length(st_estimate_mats), 'error')
 
@@ -50,7 +50,7 @@ subject_list   = cell(n_st_estimates, 1);
 sess_list      = cell(n_st_estimates, 1);
 trialNum_list  = cell(n_st_estimates, 1);
 ons_list       = nan(n_st_estimates, 1);
-roi_tbl        = array2table(nan(3888, n_rois), 'VariableNames', PM_rois_names);
+roi_tbl        = array2table(nan(n_st_estimates, n_rois), 'VariableNames', PM_rois_names);
 
 for s = 1:n_st_estimates
 
@@ -108,4 +108,4 @@ metaData_tbl = table(subject_list, sess_list, trialNum_list, ons_list, ...
 final_tbl = [metaData_tbl, roi_tbl];
 
 % write
-writetable(final_tbl, 'intermediate/01_Extracted_ROI_data.csv', 'Filetype', 'text');
+writetable(final_tbl, 'intermediate/01_Extracted_ROI_data_4s.csv', 'Filetype', 'text');
