@@ -29,7 +29,7 @@ calc_quality <- function(x, thresh) {
 # define full paths to key directories and files
 
 root <- "~/Desktop/Additive_Redundant_Manuscript/"
-extracted_data_file <- file.path(root, "intermediate", "01_Extracted_ROI_data.csv")
+extracted_data_file <- file.path(root, "intermediate", "01_Extracted_ROI_data_4s.csv")
 orbit_data_dir <- file.path(root, "orbit-data")
 SS_exclusions_file <- file.path(orbit_data_dir, "derivs", "excluded-runs-elife.csv")
 behav_file <- file.path(orbit_data_dir, "behavior", "AllData_OrbitfMRI-behavior.csv")
@@ -81,6 +81,16 @@ SS_exclusions_df %>%
 behav_df %>%
   filter(SubID %in% GoodSs) -> behav_df
 
+if(str_detect(extracted_data_file, 'old', negate = TRUE)){
+  # remove 174 seconds from the onset times to account for encoding
+  behav_df %>%
+    mutate(onsetRemember = onsetRemember - 174) -> behav_df
+}
+
+# round the onsetRemember column
+behav_df %>%
+  mutate(onsetRemember = round(onsetRemember, 3)) -> behav_df
+
 # Tidy the roi_df to have a session column
 roi_df %>%
   mutate(
@@ -109,4 +119,5 @@ roi_df %>%
 # write -------------------------------------------------------------------
 
 cat("Writing:\n")
-write_delim(roi_df, "tidy_roi_data.dat", col_names = F)
+fullFile <- file.path(root, 'intermediate', 'tidy_roi_data_4s.dat')
+write_delim(roi_df, fullFile, col_names = F)
