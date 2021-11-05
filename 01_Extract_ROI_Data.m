@@ -1,7 +1,7 @@
 % Extract single trial estimates from select ROIs. Write output to a csv file for further analysis
 
 % full path to the directory this script is stored in
-root = fileparts(mfilename('fullfile'));
+root = fileparts(mfilename('fullpath'));
 
 % add spm12 to the search path
 spm_dir = fullfile(root, 'spm12');
@@ -20,17 +20,6 @@ PM_rois_indx  = cell(1, n_rois);
 single_trial_est_dir = fullfile(root, 'st_estimates_4s');
 
 %% Routine
-
-% relice ROIs
-first_sub_first_st_est_dir = fullfile(single_trial_est_dir, 'sub-s002', 'Ts');
-ref = spm_select('FPList', first_sub_first_st_est_dir, 'Sess01_Retrieval_001_T.nii');
-matlabbatch{1}.spm.spatial.coreg.write.ref             = {ref};
-matlabbatch{1}.spm.spatial.coreg.write.source          = {roi_full_file};
-matlabbatch{1}.spm.spatial.coreg.write.roptions.interp = 4;
-matlabbatch{1}.spm.spatial.coreg.write.roptions.wrap   = [0 0 0];
-matlabbatch{1}.spm.spatial.coreg.write.roptions.mask   = 0;
-matlabbatch{1}.spm.spatial.coreg.write.roptions.prefix = 'r';
-spm_jobman('run', matlabbatch);
 
 % load ROIs
 resliced_roi_full_file = fullfile(roi_dir, ['r' roi_file]);
@@ -69,7 +58,7 @@ for s = 1:n_st_estimates
    % subject, session, and trial number
    subF      = contains(st_estimate_mats, subject);
    sesF      = contains(st_estimate_mats, sess);
-   triF      = contains(st_estimate_mats, trialNum);
+   triF      = contains(st_estimate_mats, ['Retrieval_' trialNum]);
    trial_mat = st_estimate_mats{subF & sesF & triF};
    assert(size(trial_mat, 1) == 1, 'error')
 
@@ -108,4 +97,4 @@ metaData_tbl = table(subject_list, sess_list, trialNum_list, ons_list, ...
 final_tbl = [metaData_tbl, roi_tbl];
 
 % write
-writetable(final_tbl, 'intermediate/01_Extracted_ROI_data_4s.csv', 'Filetype', 'text');
+writetable(final_tbl, 'intermediate/01_Extracted_ROI_data_4s_twoeight.csv', 'Filetype', 'text');
