@@ -1,0 +1,620 @@
+Mplus VERSION 8.2 (Linux)
+MUTHEN & MUTHEN
+11/04/2021   3:35 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE: Model 5: PHC
+  DATA: FILE is tidy_roi_data.dat;
+  VARIABLE:
+    NAMES are subject pHipp PREC PCC MPFC PHC RSC aAG pAG SceCorr ColCorr EmoCorr;
+    USEVARIABLES are subject pHipp PREC PCC PHC RSC aAG pAG SceCorr ColCorr EmoCorr;
+    CATEGORICAL = SceCorr ColCorr EmoCorr;
+    CLUSTER = subject;
+  ANALYSIS:
+  TYPE = TWOLEVEL;
+  ESTIMATOR = WLSMV;
+  MODEL:
+  %WITHIN%
+  PMN BY pHipp-pAG;
+  MemQw BY SceCorr (1)
+  ColCorr (2)
+  EmoCorr (3);
+  MemQw ON PMN PHC;
+  %BETWEEN%
+  MemQb BY SceCorr (1)
+  ColCorr (2)
+  EmoCorr (3);
+  pHipp-pAG;
+  MemQb WITH pHIPP-pAG;
+  pHIPP WITH PREC-pAG;
+  PREC WITH PCC-pAG;
+  PCC WITH PHC-pAG;
+  PHC WITH RSC-pAG;
+  RSC WITH aAG pAG;
+  aAG WITH pAG;
+  Output:
+  stdyx sampstat;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+Model 5: PHC
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3888
+
+Number of dependent variables                                   10
+Number of independent variables                                  0
+Number of continuous latent variables                            3
+
+Observed dependent variables
+
+  Continuous
+   PHIPP       PREC        PCC         PHC         RSC         AAG
+   PAG
+
+  Binary and ordered categorical (ordinal)
+   SCECORR     COLCORR     EMOCORR
+
+Continuous latent variables
+   PMN         MEMQW       MEMQB
+
+Variables with special functions
+
+  Cluster variable      SUBJECT
+
+Estimator                                                    WLSMV
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                1000
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-02
+    Relative loglikelihood change                        0.100D-05
+    Derivative                                           0.100D-02
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            10
+  Minimum value for logit thresholds                           -10
+  Minimum expected cell size for chi-square              0.100D-01
+Optimization algorithm                                      EMA/FS
+Integration Specifications
+  Type                                                    STANDARD
+  Number of integration points                                   7
+  Dimensions of numerical integration                            0
+  Adaptive quadrature                                           ON
+Link                                                        PROBIT
+Cholesky                                                        ON
+
+Input data file(s)
+  tidy_roi_data.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of clusters                         28
+
+     Average cluster size      138.857
+
+     Estimated Intraclass Correlations for the Y Variables
+
+                Intraclass              Intraclass              Intraclass
+     Variable  Correlation   Variable  Correlation   Variable  Correlation
+
+     SCECORR      0.208      COLCORR      0.145      EMOCORR      0.119
+     PHIPP        0.037      PREC         0.085      PCC          0.193
+     PHC          0.124      RSC          0.156      AAG          0.254
+     PAG          0.077
+
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    SCECORR
+      Category 1    0.324         1261.000
+      Category 2    0.676         2627.000
+    COLCORR
+      Category 1    0.278         1082.000
+      Category 2    0.722         2806.000
+    EMOCORR
+      Category 1    0.243          943.000
+      Category 2    0.757         2945.000
+
+
+SAMPLE STATISTICS
+
+
+     ESTIMATED SAMPLE STATISTICS
+
+
+           MEANS/INTERCEPTS/THRESHOLDS
+              SCECORR$      COLCORR$      EMOCORR$      PHIPP         PREC
+              ________      ________      ________      ________      ________
+               -0.507        -0.630        -0.729         0.033         0.066
+
+
+           MEANS/INTERCEPTS/THRESHOLDS
+              PCC           PHC           RSC           AAG           PAG
+              ________      ________      ________      ________      ________
+                0.115         0.045         0.111         0.083         0.059
+
+
+           WITHIN LEVEL VARIANCE/COVARIANCE
+              SCECORR       COLCORR       EMOCORR       PHIPP         PREC
+              ________      ________      ________      ________      ________
+ SCECORR        1.000
+ COLCORR        0.326         1.000
+ EMOCORR        0.308         0.225         1.000
+ PHIPP          0.010         0.002         0.011         0.032
+ PREC           0.015         0.014         0.017         0.014         0.058
+ PCC            0.013         0.002         0.019         0.020         0.034
+ PHC            0.019         0.007         0.011         0.011         0.014
+ RSC            0.029         0.004         0.013         0.011         0.018
+ AAG            0.009         0.002         0.012         0.024         0.041
+ PAG            0.028        -0.002         0.016         0.021         0.033
+
+
+           WITHIN LEVEL VARIANCE/COVARIANCE
+              PCC           PHC           RSC           AAG           PAG
+              ________      ________      ________      ________      ________
+ PCC            0.078
+ PHC            0.017         0.036
+ RSC            0.021         0.016         0.044
+ AAG            0.054         0.022         0.027         0.121
+ PAG            0.042         0.029         0.031         0.052         0.119
+
+
+           WITHIN LEVEL CORRELATION
+              SCECORR       COLCORR       EMOCORR       PHIPP         PREC
+              ________      ________      ________      ________      ________
+ SCECORR        1.000
+ COLCORR        0.326         1.000
+ EMOCORR        0.308         0.225         1.000
+ PHIPP          0.054         0.009         0.060         1.000
+ PREC           0.064         0.059         0.070         0.330         1.000
+ PCC            0.046         0.008         0.069         0.394         0.504
+ PHC            0.103         0.037         0.058         0.315         0.318
+ RSC            0.137         0.017         0.063         0.281         0.356
+ AAG            0.027         0.006         0.034         0.380         0.485
+ PAG            0.082        -0.005         0.047         0.331         0.404
+
+
+           WITHIN LEVEL CORRELATION
+              PCC           PHC           RSC           AAG           PAG
+              ________      ________      ________      ________      ________
+ PCC            1.000
+ PHC            0.315         1.000
+ RSC            0.362         0.418         1.000
+ AAG            0.555         0.336         0.376         1.000
+ PAG            0.433         0.445         0.425         0.433         1.000
+
+
+           BETWEEN LEVEL VARIANCE/COVARIANCE
+              SCECORR       COLCORR       EMOCORR       PHIPP         PREC
+              ________      ________      ________      ________      ________
+ SCECORR        0.262
+ COLCORR        0.166         0.169
+ EMOCORR        0.155         0.104         0.134
+ PHIPP          0.006         0.003         0.005         0.001
+ PREC           0.016         0.006         0.015         0.001         0.005
+ PCC            0.013         0.024         0.011         0.002         0.003
+ PHC            0.016         0.011         0.016         0.001         0.002
+ RSC            0.024         0.016         0.020         0.001         0.003
+ AAG            0.006         0.011        -0.001         0.002         0.002
+ PAG            0.016         0.015         0.012         0.001        -0.001
+
+
+           BETWEEN LEVEL VARIANCE/COVARIANCE
+              PCC           PHC           RSC           AAG           PAG
+              ________      ________      ________      ________      ________
+ PCC            0.019
+ PHC            0.003         0.005
+ RSC            0.005         0.004         0.008
+ AAG            0.007        -0.004         0.005         0.041
+ PAG            0.001         0.003         0.001        -0.003         0.010
+
+
+           BETWEEN LEVEL CORRELATION
+              SCECORR       COLCORR       EMOCORR       PHIPP         PREC
+              ________      ________      ________      ________      ________
+ SCECORR        1.000
+ COLCORR        0.788         1.000
+ EMOCORR        0.826         0.692         1.000
+ PHIPP          0.327         0.200         0.377         1.000
+ PREC           0.415         0.204         0.547         0.200         1.000
+ PCC            0.179         0.423         0.222         0.490         0.276
+ PHC            0.447         0.360         0.618         0.322         0.413
+ RSC            0.513         0.427         0.600         0.283         0.522
+ AAG            0.053         0.131        -0.015         0.337         0.147
+ PAG            0.307         0.360         0.315         0.241        -0.082
+
+
+           BETWEEN LEVEL CORRELATION
+              PCC           PHC           RSC           AAG           PAG
+              ________      ________      ________      ________      ________
+ PCC            1.000
+ PHC            0.268         1.000
+ RSC            0.407         0.577         1.000
+ AAG            0.256        -0.310         0.292         1.000
+ PAG            0.085         0.417         0.095        -0.166         1.000
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     PHIPP                 0.034      -0.052      -0.752    0.03%      -0.115     -0.013      0.034
+            3888.000       0.034       0.550       0.999    0.03%       0.079      0.187
+     PREC                  0.068       0.006      -1.073    0.03%      -0.135      0.007      0.064
+            3888.000       0.063       0.618       1.134    0.03%       0.122      0.272
+     PCC                   0.119       0.128      -1.587    0.03%      -0.129      0.043      0.118
+            3888.000       0.097       0.813       1.478    0.03%       0.188      0.363
+     PHC                   0.046      -0.133      -1.171    0.03%      -0.115      0.003      0.050
+            3888.000       0.041       0.688       0.877    0.03%       0.096      0.209
+     RSC                   0.113      -0.027      -0.943    0.03%      -0.078      0.058      0.114
+            3888.000       0.052       0.288       0.978    0.03%       0.170      0.299
+     AAG                   0.082       0.180      -1.675    0.03%      -0.239     -0.018      0.077
+            3888.000       0.162       0.890       1.986    0.03%       0.173      0.394
+     PAG                   0.060      -0.170      -2.105    0.03%      -0.223     -0.016      0.067
+            3888.000       0.129       1.102       1.732    0.03%       0.147      0.347
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       68
+
+Chi-Square Test of Model Fit
+
+          Value                            502.320*
+          Degrees of Freedom                    49
+          P-Value                           0.0000
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.049
+
+CFI/TLI
+
+          CFI                                0.982
+          TLI                                0.967
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                          25402.556
+          Degrees of Freedom                    90
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value for Within                   0.035
+          Value for Between                  0.049
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ PMN      BY
+    PHIPP              1.000      0.000    999.000    999.000
+    PREC               1.658      0.019     85.546      0.000
+    PCC                2.066      0.021     99.294      0.000
+    PHC                1.095      0.014     78.147      0.000
+    RSC                1.275      0.014     88.077      0.000
+    AAG                2.571      0.039     66.080      0.000
+    PAG                2.389      0.027     89.282      0.000
+
+ MEMQW    BY
+    SCECORR            1.000      0.000    999.000    999.000
+    COLCORR            0.520      0.122      4.255      0.000
+    EMOCORR            0.543      0.104      5.226      0.000
+
+ MEMQW      ON
+    PMN                1.218      0.405      3.006      0.003
+
+ MEMQW      ON
+    PHC                0.324      0.178      1.825      0.068
+
+ Variances
+    PMN                0.009      0.000     42.206      0.000
+
+ Residual Variances
+    PHIPP              0.023      0.000     91.736      0.000
+    PREC               0.033      0.000     87.089      0.000
+    PCC                0.040      0.000     96.153      0.000
+    PHC                0.025      0.000     95.681      0.000
+    RSC                0.029      0.000    105.261      0.000
+    AAG                0.062      0.001     91.883      0.000
+    PAG                0.068      0.001    110.788      0.000
+    MEMQW              0.928      0.289      3.216      0.001
+
+Between Level
+
+ MEMQB    BY
+    SCECORR            1.000      0.000    999.000    999.000
+    COLCORR            0.520      0.122      4.255      0.000
+    EMOCORR            0.543      0.104      5.226      0.000
+
+ MEMQB    WITH
+    PHIPP              0.008      0.006      1.385      0.166
+    PREC               0.022      0.012      1.857      0.063
+    PCC                0.029      0.020      1.463      0.144
+    PHC                0.026      0.013      2.035      0.042
+    RSC                0.036      0.015      2.358      0.018
+    AAG                0.009      0.205      0.043      0.966
+    PAG                0.026      0.016      1.564      0.118
+
+ PHIPP    WITH
+    PREC               0.001      0.000      1.171      0.241
+    PCC                0.002      0.001      3.184      0.001
+    PHC                0.001      0.001      1.176      0.239
+    RSC                0.001      0.001      1.034      0.301
+    AAG                0.002      0.001      1.996      0.046
+    PAG                0.001      0.001      0.930      0.353
+
+ PREC     WITH
+    PCC                0.003      0.001      2.006      0.045
+    PHC                0.002      0.001      1.850      0.064
+    RSC                0.003      0.001      2.345      0.019
+    AAG                0.002      0.002      0.882      0.378
+    PAG               -0.001      0.001     -0.469      0.639
+
+ PCC      WITH
+    PHC                0.003      0.003      0.952      0.341
+    RSC                0.005      0.003      1.873      0.061
+    AAG                0.007      0.005      1.332      0.183
+    PAG                0.001      0.003      0.445      0.656
+
+ PHC      WITH
+    RSC                0.004      0.001      2.766      0.006
+    AAG               -0.004      0.003     -1.740      0.082
+    PAG                0.003      0.002      1.830      0.067
+
+ RSC      WITH
+    AAG                0.005      0.004      1.336      0.182
+    PAG                0.001      0.002      0.516      0.606
+
+ AAG      WITH
+    PAG               -0.003      0.003     -1.166      0.244
+
+ Means
+    PHIPP              0.033      0.008      4.386      0.000
+    PREC               0.066      0.015      4.564      0.000
+    PCC                0.115      0.030      3.868      0.000
+    PHC                0.045      0.015      3.027      0.002
+    RSC                0.111      0.018      6.250      0.000
+    AAG                0.083      0.044      1.903      0.057
+    PAG                0.059      0.023      2.523      0.012
+
+ Thresholds
+    SCECORR$1         -0.708      0.142     -4.983      0.000
+    COLCORR$1         -0.706      0.097     -7.287      0.000
+    EMOCORR$1         -0.825      0.104     -7.908      0.000
+
+ Variances
+    PHIPP              0.001      0.000      3.862      0.000
+    PREC               0.005      0.002      3.112      0.002
+    PCC                0.019      0.003      5.737      0.000
+    PHC                0.005      0.002      2.959      0.003
+    RSC                0.008      0.002      3.298      0.001
+    AAG                0.041      0.010      4.113      0.000
+    PAG                0.010      0.003      2.970      0.003
+    MEMQB              0.474      0.270      1.754      0.079
+
+ Residual Variances
+    SCECORR            0.038      0.147      0.258      0.796
+    COLCORR            0.085      0.078      1.086      0.277
+    EMOCORR            0.032      0.063      0.516      0.606
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ PMN      BY
+    PHIPP              0.527      0.005     98.725      0.000
+    PREC               0.656      0.005    137.040      0.000
+    PCC                0.702      0.003    203.763      0.000
+    PHC                0.550      0.006     95.898      0.000
+    RSC                0.579      0.005    111.408      0.000
+    AAG                0.701      0.005    143.125      0.000
+    PAG                0.657      0.004    154.142      0.000
+
+ MEMQW    BY
+    SCECORR            0.699      0.055     12.664      0.000
+    COLCORR            0.453      0.039     11.577      0.000
+    EMOCORR            0.469      0.026     18.288      0.000
+
+ MEMQW      ON
+    PMN                0.118      0.033      3.588      0.000
+
+ MEMQW      ON
+    PHC                0.063      0.037      1.714      0.087
+
+ Variances
+    PMN                1.000      0.000    999.000    999.000
+
+ Residual Variances
+    PHIPP              0.722      0.006    128.383      0.000
+    PREC               0.570      0.006     90.828      0.000
+    PCC                0.507      0.005    104.903      0.000
+    PHC                0.697      0.006    110.477      0.000
+    RSC                0.664      0.006    110.173      0.000
+    AAG                0.509      0.007     74.082      0.000
+    PAG                0.568      0.006    101.535      0.000
+    MEMQW              0.974      0.008    115.016      0.000
+
+Between Level
+
+ MEMQB    BY
+    SCECORR            0.962      0.142      6.773      0.000
+    COLCORR            0.776      0.162      4.802      0.000
+    EMOCORR            0.901      0.177      5.090      0.000
+
+ MEMQB    WITH
+    PHIPP              0.319      0.190      1.678      0.093
+    PREC               0.441      0.155      2.839      0.005
+    PCC                0.305      0.205      1.486      0.137
+    PHC                0.536      0.175      3.058      0.002
+    RSC                0.585      0.152      3.857      0.000
+    AAG                0.063      1.473      0.043      0.966
+    PAG                0.375      0.214      1.752      0.080
+
+ PHIPP    WITH
+    PREC               0.200      0.158      1.263      0.207
+    PCC                0.490      0.088      5.534      0.000
+    PHC                0.322      0.247      1.305      0.192
+    RSC                0.283      0.259      1.093      0.275
+    AAG                0.337      0.131      2.566      0.010
+    PAG                0.241      0.244      0.986      0.324
+
+ PREC     WITH
+    PCC                0.276      0.115      2.395      0.017
+    PHC                0.413      0.135      3.060      0.002
+    RSC                0.522      0.155      3.371      0.001
+    AAG                0.147      0.155      0.947      0.344
+    PAG               -0.082      0.174     -0.472      0.637
+
+ PCC      WITH
+    PHC                0.268      0.269      0.995      0.320
+    RSC                0.407      0.182      2.238      0.025
+    AAG                0.256      0.178      1.440      0.150
+    PAG                0.085      0.187      0.455      0.649
+
+ PHC      WITH
+    RSC                0.577      0.095      6.058      0.000
+    AAG               -0.310      0.148     -2.100      0.036
+    PAG                0.417      0.159      2.623      0.009
+
+ RSC      WITH
+    AAG                0.292      0.214      1.364      0.173
+    PAG                0.095      0.180      0.526      0.599
+
+ AAG      WITH
+    PAG               -0.166      0.131     -1.264      0.206
+
+ Means
+    PHIPP              0.949      0.221      4.299      0.000
+    PREC               0.908      0.228      3.990      0.000
+    PCC                0.844      0.220      3.840      0.000
+    PHC                0.628      0.256      2.454      0.014
+    RSC                1.240      0.255      4.870      0.000
+    AAG                0.408      0.204      1.998      0.046
+    PAG                0.590      0.296      1.996      0.046
+
+ Thresholds
+    SCECORR$1         -0.507      0.107     -4.716      0.000
+    COLCORR$1         -0.630      0.081     -7.726      0.000
+    EMOCORR$1         -0.729      0.093     -7.808      0.000
+
+ Variances
+    PHIPP              1.000      0.000    999.000    999.000
+    PREC               1.000      0.000    999.000    999.000
+    PCC                1.000      0.000    999.000    999.000
+    PHC                1.000      0.000    999.000    999.000
+    RSC                1.000      0.000    999.000    999.000
+    AAG                1.000      0.000    999.000    999.000
+    PAG                1.000      0.000    999.000    999.000
+    MEMQB              1.000      0.000    999.000    999.000
+
+ Residual Variances
+    SCECORR            0.074      0.273      0.271      0.786
+    COLCORR            0.398      0.251      1.585      0.113
+    EMOCORR            0.187      0.319      0.587      0.557
+
+
+R-SQUARE
+
+Within Level
+
+    Observed                                        Two-Tailed     Scale
+    Variable        Estimate       S.E.  Est./S.E.    P-Value     Factors
+
+    SCECORR            0.488      0.077      6.332      0.000      0.716
+    COLCORR            0.205      0.035      5.788      0.000      0.892
+    EMOCORR            0.220      0.024      9.144      0.000      0.883
+    PHIPP              0.278      0.006     49.363      0.000      0.000
+    PREC               0.430      0.006     68.520      0.000      0.000
+    PCC                0.493      0.005    101.882      0.000      0.000
+    PHC                0.303      0.006     47.949      0.000      0.000
+    RSC                0.336      0.006     55.704      0.000      0.000
+    AAG                0.491      0.007     71.563      0.000      0.000
+    PAG                0.432      0.006     77.071      0.000      0.000
+
+     Latent                                         Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    MEMQW              0.026      0.008      3.089      0.002
+
+Between Level
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    SCECORR            0.926      0.273      3.386      0.001
+    COLCORR            0.602      0.251      2.401      0.016
+    EMOCORR            0.813      0.319      2.545      0.011
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.615E-08
+       (ratio of smallest to largest eigenvalue)
+
+
+     Beginning Time:  15:35:17
+        Ending Time:  15:35:39
+       Elapsed Time:  00:00:22
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2018 Muthen & Muthen
