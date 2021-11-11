@@ -23,6 +23,7 @@ addpath(b.scriptdir);
 
 %where is regressor information (behavioral csv file)
 b.behavDir  = '/gsfs0/data/ritcheym/data/fmri/orbit/data/behavior/';
+
 % load in behavioral data:
 behavFile = [b.behavDir 'AllData_OrbitfMRI-behavior.csv'];
 allData = readtable(behavFile);
@@ -48,7 +49,6 @@ names = {'Retrieval'};
 evDurations = zeros(1,length(names)); %duration to assign to events, per regressor
 %evDurations = repmat(4,1,length(names)); %duration to assign to events, per regressor
 
-
 %% loop through subjects %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 subCount = 0;
@@ -63,7 +63,6 @@ for i = 1:length(subjects)
     % for getting the right onsets
     %now remove any runs that were excluded before data processing
     taskRuns(taskRuns == -1) = [];
-    
     
     % only run if have at least 4/6 memory runs
     if curRuns{8} == 1 % -------------------------------------------
@@ -82,12 +81,13 @@ for i = 1:length(subjects)
         curNum = str2num(cell2mat(regexp(b.curSubj, '\d*', 'Match')));
         behavData = allData(table2array(allData(:,1)) == curNum,:);
         
-        
         %% loop through memory task runs ------------------------------------------
         runCount = 0;
         for r = 1:length(taskRuns)
+
             %only process runs that are still valid after motion exclusion:
             if taskRuns(r) == 1
+
                 runCount = runCount + 1;
                 
                 %NOTE - for subjects who are missing runs BEFORE PROCESSING, the scan runs are always

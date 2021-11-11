@@ -23,9 +23,9 @@ addpath('/gsfs0/data/cooperrn/Documents');
 
 %where is regressor information (.tsv files from fmriprep)
 b.derivDir  = '/gsfs0/data/ritcheym/data/fmri/orbit/data/derivs/fmriprep/';
+
 %where to save regressor csv files:
 b.saveDir   = '/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/regressors/';
-
 
 % load in file from exclude runs to determine which runs will be modeled
 % for each subject:
@@ -34,7 +34,6 @@ b.saveDir   = '/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA
 % 0  = excluded after data processing due to motion
 myRuns = readtable('/gsfs0/data/ritcheym/data/fmri/orbit/data/derivs/excluded-runs-elife.csv');
 subjects = table2cell(myRuns(:,1))';
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -48,35 +47,34 @@ spike_threshold = 0.6; % note that this is double the thrshold used to evaluate 
 
 fprintf('\nCreating nuisance regressors including spikes > %0.2f mm...\n',spike_threshold);
 
-
 %% loop through subjects -----------------------------------------------
 for i = 1:length(subjects)
-    
+
     %determine if include this subject (col 8 marks is subject valid, overall):
     curRuns  = table2cell(myRuns(i,:));
     taskRuns = cell2mat(curRuns(2:7)); %6 orbit runs
     %now remove any runs that were excluded before data processing
     taskRuns(taskRuns == -1) = [];
-    
-    
+
+
     % only run if have at least 4/6 memory runs
     if curRuns{8} == 1 % -------------------------------------------
-        
+
         fprintf('\nCreating nuisance regressors for %s for %d/6 retrieval runs...\n',subjects{i},sum(taskRuns));
         b.curSubj = subjects{i};
-        
+
         %make folder for subject's regressors:
         subjDir = [b.saveDir b.curSubj filesep];
         if ~exist(subjDir,'dir'), mkdir(subjDir); end
-        
-        
+
         %% loop through runs
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+
         for r = 1:length(taskRuns)
-            %only process runs that are still valid after motion exclusion:
+            
+	    %only process runs that are still valid after motion exclusion:
             if taskRuns(r) == 1
-                
+
                 % create motion regressors -----------------------------------------------
                 motionFile = [b.derivDir b.curSubj '/func/' b.curSubj '_task-Memory_run-0' num2str(r) '_bold_confounds.tsv'];
                 [~,~,motionData] = tsvread(motionFile);
@@ -107,20 +105,19 @@ for i = 1:length(subjects)
                 for tr = 1:size(R,1)
                     if R(tr,1) > spike_threshold
                         spike_count = spike_count + 1;
-                        new_reg = zeros(size(R,1),1);
+                        new_reg     = zeros(size(R, 1), 1);
                         new_reg(tr) = 1;
-                        spike_regs = [spike_regs, new_reg];
-                        spike_names = [spike_names, {['spike' num2str(spike_count,'%03.f')]}];
+                        spike_regs  = [spike_regs, new_reg];
+                        spike_names = [spike_names, {['spike' num2str(spike_count, '%03.f')]}];
                     end
                 end
-                fprintf('   Spike regressors, run %d = %d\n',r,size(spike_regs,2));
-                
+                fprintf('   Spike regressors, run %d = %d\n', r, size(spike_regs, 2));
                 
                 % save concatenated file:
                 names = {};
                 names = [motnames, spike_names];
                 R = [R, spike_regs];
-                
+
                 % now save out text file for concatenated motion regressors -------------------------------
                 fileName = [subjDir b.curSubj '_task-Retrieval_run-0' num2str(r) '_nuisance_regressors.mat'];
                 if(~exist(fileName, 'file'))
@@ -128,13 +125,13 @@ for i = 1:length(subjects)
 		     save(fileName, 'R','names');
 		end
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                
+
             end %end of loop to only process valid runs
-            
+
         end %end of loop through memory runs ------------------------------------
-        
+
     end %end of loop that only runs for included subjects -------------------
-    
+
 end %end of loop through subjects ---------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

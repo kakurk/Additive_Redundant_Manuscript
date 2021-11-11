@@ -8,19 +8,20 @@ function generate_RSA_singleTrial(i)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % SPM info
-addpath('/gsfs0/data/cooperrn/Documents/fmri-core/spm12'); %using mine and not lab's because of a bug fix to est_non-sphericty for explicit masks
+rootdir = fileparts(fileparts(mfilename('fullpath')));
+spmdir  = fullfile(rootdir, spmdir);
+addpath(spmdir);
 spm_jobman('initcfg')
 spm('defaults', 'FMRI');
 
-this_phase = 'Retrieval'; % 'Retrieval';
-
 %first level models for RSA:
-modDir  = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/' this_phase '/RSA/first-level-4s/unsmoothed/']; 
+modDir = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/first-level-4s/unsmoothed/']; 
 
 % SUBJECTS
 % define all subjects who have regressors:
 subjs = struct2cell(dir(modDir));
-%clear rows that are not subjects:
+
+% clear rows that are not subjects:
 subjs = subjs(1,contains(subjs(1,:),'sub'));
 
 %% loop through subjects
@@ -29,14 +30,14 @@ curSubj = subjs{i};
 
 % where are the first-level model files?
 spmDir  = [modDir curSubj];
+
 % where should my models go?
-outDir  = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/' this_phase '/RSA/single-trial-4s/unsmoothed/' curSubj '/'];
+outDir  = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/single-trial-4s/unsmoothed/' curSubj '/'];
 
 %create out directory if it does not exist
 if ~exist(outDir, 'dir')
     mkdir(outDir)
 end
-
 
 %% Load SPM.mat file and get info
 
@@ -50,8 +51,10 @@ end
 
 % Get model information from SPM file
 fprintf('\n    Getting model information...\n');
-%original fMRI data files:
+
+% original fMRI data files:
 files = cellstr(origSPM.SPM.xY.P);
+
 fprintf('    Modeling %i timepoints across %i sessions.\n', size(files,1), length(origSPM.SPM.Sess));
 
 % Make directory for T images and per trial
@@ -83,6 +86,7 @@ for iSess = 1:length(origSPM.SPM.Sess)
     lssDurations = cell(1, length(originalOnsets));
     
     for jOnset = 1:length(originalOnsets)
+        
         % (e.g. ConditionA_001, Other_ConditionA, ConditionB, ConditionC, etc.)
         lssNames{jOnset} = {[originalNames '_' sprintf('%03d', jOnset)]...
             ['Other_' originalNames]};
@@ -96,6 +100,7 @@ for iSess = 1:length(origSPM.SPM.Sess)
         lssOnsets{jOnset}{2}(jOnset) = []; %remove single trial from 'other'
         lssDurations{jOnset}{2} = originalDurations;
         lssDurations{jOnset}{2}(jOnset) = [];
+
     end
     
     % CREATE MODEL PER TRIAL -------------------------------------
@@ -163,36 +168,36 @@ end % end of main function
 %% SUBFUNCTIONS
 
 function parsaveReg(outFile, names, onsets, durations)
-save(outFile, 'names', 'onsets', 'durations');
+     save(outFile, 'names', 'onsets', 'durations');
 end
 
 function parsaveCov(outFile, R, names)
-save(outFile, 'R', 'names');
+     save(outFile, 'R', 'names');
 end
 
 function matlabbatch = create_matlabbatch(trialDir, sessFiles, regFile, covFile)
 
 % Create matlabbatch for new SPM.mat file (general parameters)
-matlabbatch{1}.spm.stats.fmri_spec.dir = {trialDir};
-matlabbatch{1}.spm.stats.fmri_spec.timing.units   = 'secs';
-matlabbatch{1}.spm.stats.fmri_spec.timing.RT      = 1.5;
-matlabbatch{1}.spm.stats.fmri_spec.timing.fmri_t  = 16; % default - the number of time bins spm divides into
-matlabbatch{1}.spm.stats.fmri_spec.timing.fmri_t0 = 8;  % default - the time bin modeled (middle if reference scan middle for slice time correction)
+matlabbatch{1}.spm.stats.fmri_spec.dir              = {trialDir};
+matlabbatch{1}.spm.stats.fmri_spec.timing.units     = 'secs';
+matlabbatch{1}.spm.stats.fmri_spec.timing.RT        = 1.5;
+matlabbatch{1}.spm.stats.fmri_spec.timing.fmri_t    = 16; % default - the number of time bins spm divides into
+matlabbatch{1}.spm.stats.fmri_spec.timing.fmri_t0   = 8;  % default - the time bin modeled (middle if reference scan middle for slice time correction)
 matlabbatch{1}.spm.stats.fmri_spec.fact             = struct('name', {}, 'levels', {});
 matlabbatch{1}.spm.stats.fmri_spec.bases.hrf.derivs = [0 0];
 matlabbatch{1}.spm.stats.fmri_spec.volt             = 1;
 matlabbatch{1}.spm.stats.fmri_spec.global           = 'None';
-matlabbatch{1}.spm.stats.fmri_spec.mthresh          = -Inf;  % note- this has been changed to -inf in our spm_defaults.m
+matlabbatch{1}.spm.stats.fmri_spec.mthresh          = -Inf;
 matlabbatch{1}.spm.stats.fmri_spec.mask 	    = {'/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/myROIs/PMAT-MNI-space/wb_graymatter_mask.nii,1'};
 matlabbatch{1}.spm.stats.fmri_spec.cvi              = 'AR(1)';
 
 % add model-specific files
-matlabbatch{1}.spm.stats.fmri_spec.sess.scans = sessFiles;
-matlabbatch{1}.spm.stats.fmri_spec.sess.cond = struct('name', {}, 'onset', {}, 'duration', {}, 'tmod', {}, 'pmod', {});
-matlabbatch{1}.spm.stats.fmri_spec.sess.multi = {regFile};
-matlabbatch{1}.spm.stats.fmri_spec.sess.regress = struct('name', {}, 'val', {});
+matlabbatch{1}.spm.stats.fmri_spec.sess.scans     = sessFiles;
+matlabbatch{1}.spm.stats.fmri_spec.sess.cond      = struct('name', {}, 'onset', {}, 'duration', {}, 'tmod', {}, 'pmod', {});
+matlabbatch{1}.spm.stats.fmri_spec.sess.multi     = {regFile};
+matlabbatch{1}.spm.stats.fmri_spec.sess.regress   = struct('name', {}, 'val', {});
 matlabbatch{1}.spm.stats.fmri_spec.sess.multi_reg = {covFile};
-matlabbatch{1}.spm.stats.fmri_spec.sess.hpf = 128;
+matlabbatch{1}.spm.stats.fmri_spec.sess.hpf       = 128;
 
 end
 
