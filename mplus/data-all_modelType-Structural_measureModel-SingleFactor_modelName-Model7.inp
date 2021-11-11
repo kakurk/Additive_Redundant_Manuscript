@@ -11,10 +11,11 @@ ESTIMATOR = WLSMV;
 MODEL:
 %WITHIN%
 PMN BY pHipp-pAG;
+RSC WITH PHC;
+pAG WITH PHC;
 MemQ BY SceCorr (1)
 ColCorr (2)
 EmoCorr (3);
-pAG WITH MPFC;
 MemQ ON PMN 
 aAG (uaAG);
 %BETWEEN%

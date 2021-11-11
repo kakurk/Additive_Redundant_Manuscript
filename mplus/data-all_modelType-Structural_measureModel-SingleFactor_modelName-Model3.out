@@ -1,6 +1,6 @@
 Mplus VERSION 8.2 (Linux)
 MUTHEN & MUTHEN
-11/05/2021  12:30 PM
+11/11/2021   1:30 PM
 
 INPUT INSTRUCTIONS
 
@@ -17,10 +17,11 @@ INPUT INSTRUCTIONS
   MODEL:
   %WITHIN%
   PMN BY pHipp-pAG;
+  RSC WITH PHC;
+  pAG WITH PHC;
   MemQ BY SceCorr (1)
   ColCorr (2)
   EmoCorr (3);
-  pAG WITH MPFC;
   MemQ ON PMN
   PCC (uPCC);
   %BETWEEN%
@@ -178,12 +179,12 @@ THE MODEL ESTIMATION TERMINATED NORMALLY
 
 MODEL FIT INFORMATION
 
-Number of Free Parameters                       81
+Number of Free Parameters                       82
 
 Chi-Square Test of Model Fit
 
-          Value                           1291.290*
-          Degrees of Freedom                    59
+          Value                            960.507*
+          Degrees of Freedom                    58
           P-Value                           0.0000
 
 *   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
@@ -193,18 +194,18 @@ Chi-Square Test of Model Fit
 
 Wald Test of Parameter Constraints
 
-          Value                              0.013
+          Value                              0.139
           Degrees of Freedom                     1
-          P-Value                           0.9100
+          P-Value                           0.7093
 
 RMSEA (Root Mean Square Error Of Approximation)
 
-          Estimate                           0.073
+          Estimate                           0.063
 
 CFI/TLI
 
-          CFI                                0.933
-          TLI                                0.876
+          CFI                                0.951
+          TLI                                0.907
 
 Chi-Square Test of Model Fit for the Baseline Model
 
@@ -214,7 +215,7 @@ Chi-Square Test of Model Fit for the Baseline Model
 
 SRMR (Standardized Root Mean Square Residual)
 
-          Value for Within                   0.050
+          Value for Within                   0.042
           Value for Between                  0.043
 
 
@@ -228,57 +229,60 @@ Within Level
 
  PMN      BY
     PHIPP              1.000      0.000    999.000    999.000
-    PREC               1.951      0.034     57.714      0.000
-    PCC                2.002      0.037     54.128      0.000
-    MPFC               2.311      0.043     53.860      0.000
-    PHC                1.136      0.021     53.269      0.000
-    RSC                1.182      0.019     63.444      0.000
-    AAG                3.365      0.069     48.693      0.000
-    PAG                2.295      0.044     52.232      0.000
+    PREC               1.953      0.034     58.057      0.000
+    PCC                2.046      0.038     53.595      0.000
+    MPFC               2.087      0.035     59.646      0.000
+    PHC                0.867      0.018     47.757      0.000
+    RSC                1.090      0.017     64.068      0.000
+    AAG                3.357      0.069     48.651      0.000
+    PAG                1.901      0.033     57.160      0.000
 
  MEMQ     BY
     SCECORR            1.000      0.000    999.000    999.000
-    COLCORR            0.572      0.147      3.889      0.000
-    EMOCORR            0.582      0.117      4.993      0.000
+    COLCORR            0.576      0.149      3.877      0.000
+    EMOCORR            0.587      0.119      4.941      0.000
 
  MEMQ       ON
-    PMN                2.485      0.733      3.391      0.001
+    PMN                2.676      0.805      3.324      0.001
 
  MEMQ       ON
-    PCC               -0.036      0.322     -0.113      0.910
+    PCC               -0.129      0.346     -0.373      0.709
+
+ RSC      WITH
+    PHC                0.006      0.000     20.679      0.000
 
  PAG      WITH
-    MPFC              -0.015      0.000    -30.031      0.000
+    PHC                0.011      0.000     37.140      0.000
 
  Variances
-    PMN                0.004      0.000     26.038      0.000
+    PMN                0.004      0.000     26.764      0.000
 
  Residual Variances
-    PHIPP              0.020      0.000     86.478      0.000
-    PREC               0.025      0.000     66.849      0.000
-    PCC                0.024      0.000    118.397      0.000
-    MPFC               0.053      0.001     90.670      0.000
-    PHC                0.023      0.000     84.673      0.000
-    RSC                0.019      0.000    111.486      0.000
-    AAG                0.055      0.001     98.268      0.000
-    PAG                0.064      0.000    137.972      0.000
-    MEMQ               0.850      0.273      3.113      0.002
+    PHIPP              0.019      0.000     84.943      0.000
+    PREC               0.024      0.000     61.975      0.000
+    PCC                0.022      0.000    114.017      0.000
+    MPFC               0.056      0.001     95.955      0.000
+    PHC                0.025      0.000     88.914      0.000
+    RSC                0.020      0.000    114.211      0.000
+    AAG                0.052      0.001     94.063      0.000
+    PAG                0.070      0.001    124.692      0.000
+    MEMQ               0.839      0.271      3.091      0.002
 
 Between Level
 
  MEMQB    BY
     SCECORR            1.000      0.000    999.000    999.000
-    COLCORR            0.572      0.147      3.889      0.000
-    EMOCORR            0.582      0.117      4.993      0.000
+    COLCORR            0.576      0.149      3.877      0.000
+    EMOCORR            0.587      0.119      4.941      0.000
 
  MEMQB    WITH
-    PHIPP              0.007      0.004      1.701      0.089
-    PREC               0.028      0.012      2.218      0.027
-    PCC                0.016      0.011      1.466      0.143
-    MPFC              -0.004      0.006     -0.617      0.537
-    PHC                0.018      0.008      2.136      0.033
-    RSC                0.032      0.009      3.528      0.000
-    AAG                0.010      0.017      0.604      0.546
+    PHIPP              0.007      0.004      1.695      0.090
+    PREC               0.027      0.012      2.209      0.027
+    PCC                0.016      0.011      1.462      0.144
+    MPFC              -0.004      0.006     -0.616      0.538
+    PHC                0.017      0.008      2.138      0.033
+    RSC                0.032      0.009      3.514      0.000
+    AAG                0.010      0.017      0.603      0.546
     PAG                0.008      0.011      0.749      0.454
 
  PHIPP    WITH
@@ -334,9 +338,9 @@ Between Level
     PAG               -0.008      0.029     -0.288      0.773
 
  Thresholds
-    SCECORR$1         -0.689      0.133     -5.184      0.000
-    COLCORR$1         -0.717      0.096     -7.480      0.000
-    EMOCORR$1         -0.841      0.097     -8.657      0.000
+    SCECORR$1         -0.688      0.132     -5.196      0.000
+    COLCORR$1         -0.718      0.096     -7.472      0.000
+    EMOCORR$1         -0.841      0.097     -8.656      0.000
 
  Variances
     PHIPP              0.001      0.000      2.174      0.030
@@ -347,12 +351,12 @@ Between Level
     RSC                0.004      0.001      4.956      0.000
     AAG                0.023      0.008      2.836      0.005
     PAG                0.014      0.004      3.566      0.000
-    MEMQB              0.417      0.240      1.737      0.082
+    MEMQB              0.412      0.239      1.727      0.084
 
  Residual Variances
-    SCECORR            0.066      0.126      0.524      0.601
-    COLCORR            0.064      0.068      0.935      0.350
-    EMOCORR            0.033      0.057      0.578      0.563
+    SCECORR            0.068      0.125      0.543      0.587
+    COLCORR            0.063      0.068      0.932      0.351
+    EMOCORR            0.032      0.057      0.564      0.573
 
 
 STANDARDIZED MODEL RESULTS
@@ -366,59 +370,62 @@ STDYX Standardization
 Within Level
 
  PMN      BY
-    PHIPP              0.416      0.007     56.265      0.000
-    PREC               0.620      0.007     92.576      0.000
-    PCC                0.634      0.004    141.263      0.000
-    MPFC               0.540      0.006     93.403      0.000
-    PHC                0.436      0.008     57.848      0.000
-    RSC                0.481      0.006     80.867      0.000
-    AAG                0.676      0.005    142.372      0.000
-    PAG                0.501      0.005     96.837      0.000
+    PHIPP              0.430      0.007     58.042      0.000
+    PREC               0.642      0.007     96.747      0.000
+    PCC                0.671      0.004    153.091      0.000
+    MPFC               0.505      0.006     85.825      0.000
+    PHC                0.345      0.008     42.650      0.000
+    RSC                0.460      0.006     75.909      0.000
+    AAG                0.699      0.005    149.609      0.000
+    PAG                0.430      0.006     74.071      0.000
 
  MEMQ     BY
-    SCECORR            0.683      0.058     11.699      0.000
-    COLCORR            0.472      0.046     10.363      0.000
-    EMOCORR            0.478      0.033     14.625      0.000
+    SCECORR            0.681      0.059     11.587      0.000
+    COLCORR            0.472      0.046     10.345      0.000
+    EMOCORR            0.479      0.033     14.515      0.000
 
  MEMQ       ON
-    PMN                0.170      0.053      3.215      0.001
+    PMN                0.191      0.061      3.132      0.002
 
  MEMQ       ON
-    PCC               -0.008      0.070     -0.112      0.911
+    PCC               -0.028      0.077     -0.365      0.715
+
+ RSC      WITH
+    PHC                0.260      0.012     21.638      0.000
 
  PAG      WITH
-    MPFC              -0.253      0.008    -31.794      0.000
+    PHC                0.258      0.006     43.364      0.000
 
  Variances
     PMN                1.000      0.000    999.000    999.000
 
  Residual Variances
-    PHIPP              0.827      0.006    134.721      0.000
-    PREC               0.616      0.008     74.305      0.000
-    PCC                0.598      0.006    105.171      0.000
-    MPFC               0.708      0.006    113.276      0.000
-    PHC                0.810      0.007    123.146      0.000
-    RSC                0.769      0.006    134.384      0.000
-    AAG                0.543      0.006     84.508      0.000
-    PAG                0.749      0.005    144.109      0.000
-    MEMQ               0.973      0.007    137.459      0.000
+    PHIPP              0.815      0.006    127.613      0.000
+    PREC               0.587      0.009     68.823      0.000
+    PCC                0.550      0.006     93.456      0.000
+    MPFC               0.744      0.006    125.032      0.000
+    PHC                0.881      0.006    158.008      0.000
+    RSC                0.789      0.006    141.770      0.000
+    AAG                0.512      0.007     78.457      0.000
+    PAG                0.815      0.005    162.979      0.000
+    MEMQ               0.970      0.009    113.938      0.000
 
 Between Level
 
  MEMQB    BY
-    SCECORR            0.929      0.120      7.739      0.000
-    COLCORR            0.826      0.155      5.315      0.000
-    EMOCORR            0.900      0.162      5.565      0.000
+    SCECORR            0.926      0.120      7.737      0.000
+    COLCORR            0.827      0.155      5.327      0.000
+    EMOCORR            0.903      0.161      5.593      0.000
 
  MEMQB    WITH
-    PHIPP              0.459      0.193      2.372      0.018
-    PREC               0.567      0.130      4.349      0.000
-    PCC                0.297      0.167      1.780      0.075
-    MPFC              -0.112      0.188     -0.594      0.553
-    PHC                0.380      0.163      2.334      0.020
-    RSC                0.786      0.170      4.631      0.000
-    AAG                0.104      0.163      0.636      0.525
-    PAG                0.106      0.133      0.801      0.423
+    PHIPP              0.459      0.193      2.371      0.018
+    PREC               0.566      0.130      4.348      0.000
+    PCC                0.296      0.167      1.779      0.075
+    MPFC              -0.112      0.188     -0.593      0.553
+    PHC                0.381      0.163      2.335      0.020
+    RSC                0.786      0.170      4.634      0.000
+    AAG                0.103      0.163      0.635      0.526
+    PAG                0.106      0.132      0.802      0.423
 
  PHIPP    WITH
     PREC               0.542      0.170      3.196      0.001
@@ -474,7 +481,7 @@ Between Level
 
  Thresholds
     SCECORR$1         -0.503      0.107     -4.708      0.000
-    COLCORR$1         -0.633      0.077     -8.167      0.000
+    COLCORR$1         -0.633      0.077     -8.166      0.000
     EMOCORR$1         -0.738      0.091     -8.143      0.000
 
  Variances
@@ -489,9 +496,9 @@ Between Level
     MEMQB              1.000      0.000    999.000    999.000
 
  Residual Variances
-    SCECORR            0.137      0.223      0.613      0.540
-    COLCORR            0.318      0.257      1.239      0.215
-    EMOCORR            0.190      0.291      0.653      0.514
+    SCECORR            0.142      0.222      0.639      0.523
+    COLCORR            0.317      0.257      1.234      0.217
+    EMOCORR            0.185      0.291      0.635      0.525
 
 
 R-SQUARE
@@ -501,42 +508,42 @@ Within Level
     Observed                                        Two-Tailed     Scale
     Variable        Estimate       S.E.  Est./S.E.    P-Value     Factors
 
-    SCECORR            0.466      0.080      5.850      0.000      0.730
-    COLCORR            0.222      0.043      5.182      0.000      0.882
-    EMOCORR            0.228      0.031      7.313      0.000      0.878
-    PHIPP              0.173      0.006     28.133      0.000      0.000
-    PREC               0.384      0.008     46.288      0.000      0.000
-    PCC                0.402      0.006     70.632      0.000      0.000
-    MPFC               0.292      0.006     46.702      0.000      0.000
-    PHC                0.190      0.007     28.924      0.000      0.000
-    RSC                0.231      0.006     40.434      0.000      0.000
-    AAG                0.457      0.006     71.186      0.000      0.000
-    PAG                0.251      0.005     48.419      0.000      0.000
+    SCECORR            0.464      0.080      5.794      0.000      0.732
+    COLCORR            0.223      0.043      5.173      0.000      0.882
+    EMOCORR            0.230      0.032      7.258      0.000      0.878
+    PHIPP              0.185      0.006     29.021      0.000      0.000
+    PREC               0.413      0.009     48.373      0.000      0.000
+    PCC                0.450      0.006     76.545      0.000      0.000
+    MPFC               0.256      0.006     42.912      0.000      0.000
+    PHC                0.119      0.006     21.325      0.000      0.000
+    RSC                0.211      0.006     37.954      0.000      0.000
+    AAG                0.488      0.007     74.804      0.000      0.000
+    PAG                0.185      0.005     37.036      0.000      0.000
 
      Latent                                         Two-Tailed
     Variable        Estimate       S.E.  Est./S.E.    P-Value
 
-    MEMQ               0.027      0.007      3.862      0.000
+    MEMQ               0.030      0.009      3.526      0.000
 
 Between Level
 
     Observed                                        Two-Tailed
     Variable        Estimate       S.E.  Est./S.E.    P-Value
 
-    SCECORR            0.863      0.223      3.870      0.000
-    COLCORR            0.682      0.257      2.658      0.008
-    EMOCORR            0.810      0.291      2.783      0.005
+    SCECORR            0.858      0.222      3.868      0.000
+    COLCORR            0.683      0.257      2.664      0.008
+    EMOCORR            0.815      0.291      2.797      0.005
 
 
 QUALITY OF NUMERICAL RESULTS
 
-     Condition Number for the Information Matrix              0.484E-09
+     Condition Number for the Information Matrix              0.547E-09
        (ratio of smallest to largest eigenvalue)
 
 
-     Beginning Time:  12:30:57
-        Ending Time:  12:31:26
-       Elapsed Time:  00:00:29
+     Beginning Time:  13:30:57
+        Ending Time:  13:31:21
+       Elapsed Time:  00:00:24
 
 
 
