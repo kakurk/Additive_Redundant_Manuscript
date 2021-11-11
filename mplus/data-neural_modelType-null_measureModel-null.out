@@ -1,6 +1,6 @@
 Mplus VERSION 8.2 (Linux)
 MUTHEN & MUTHEN
-11/04/2021   3:41 PM
+11/05/2021  12:43 PM
 
 INPUT INSTRUCTIONS
 
@@ -87,9 +87,9 @@ SUMMARY OF DATA
                 Intraclass              Intraclass              Intraclass
      Variable  Correlation   Variable  Correlation   Variable  Correlation
 
-     PHIPP        0.037      PREC         0.085      PCC          0.193
-     MPFC         0.087      PHC          0.124      RSC          0.156
-     AAG          0.255      PAG          0.077
+     PHIPP        0.021      PREC         0.123      PCC          0.142
+     MPFC         0.035      PHC          0.155      RSC          0.138
+     AAG          0.184      PAG          0.138
 
 
 
@@ -102,28 +102,28 @@ UNIVARIATE SAMPLE STATISTICS
          Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
         Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
 
-     PHIPP                 0.034      -0.052      -0.752    0.03%      -0.115     -0.013      0.034
-            3888.000       0.034       0.550       0.999    0.03%       0.079      0.187
-     PREC                  0.068       0.006      -1.073    0.03%      -0.135      0.007      0.064
-            3888.000       0.063       0.618       1.134    0.03%       0.122      0.272
-     PCC                   0.119       0.128      -1.587    0.03%      -0.129      0.043      0.118
-            3888.000       0.097       0.813       1.478    0.03%       0.188      0.363
-     MPFC                  0.000      -0.087      -1.699    0.03%      -0.271     -0.077      0.002
-            3888.000       0.114       1.100       1.929    0.03%       0.089      0.271
-     PHC                   0.046      -0.133      -1.171    0.03%      -0.115      0.003      0.050
-            3888.000       0.041       0.688       0.877    0.03%       0.096      0.209
-     RSC                   0.113      -0.027      -0.943    0.03%      -0.078      0.058      0.114
-            3888.000       0.052       0.288       0.978    0.03%       0.170      0.299
-     AAG                   0.082       0.180      -1.675    0.03%      -0.239     -0.018      0.077
-            3888.000       0.162       0.890       1.986    0.03%       0.173      0.394
-     PAG                   0.060      -0.170      -2.105    0.03%      -0.223     -0.016      0.067
-            3888.000       0.129       1.102       1.732    0.03%       0.147      0.347
+     PHIPP                 0.077       0.050      -0.614    0.03%      -0.048      0.041      0.078
+            3888.000       0.024       1.110       1.182    0.03%       0.116      0.205
+     PREC                  0.116       0.106      -0.923    0.03%      -0.061      0.060      0.111
+            3888.000       0.046       0.461       0.971    0.03%       0.160      0.286
+     PCC                   0.144       0.266      -0.614    0.03%      -0.037      0.080      0.134
+            3888.000       0.048       0.298       1.044    0.03%       0.186      0.321
+     MPFC                  0.135       0.079      -1.176    0.03%      -0.087      0.066      0.127
+            3888.000       0.078       0.576       1.308    0.03%       0.193      0.361
+     PHC                  -0.028      -0.225      -0.763    0.03%      -0.172     -0.065     -0.022
+            3888.000       0.033       0.661       1.048    0.03%       0.023      0.121
+     RSC                   0.049       0.067      -0.567    0.03%      -0.088      0.008      0.047
+            3888.000       0.029       0.510       0.808    0.03%       0.088      0.186
+     AAG                   0.188       0.072      -1.346    0.03%      -0.090      0.100      0.182
+            3888.000       0.124       0.548       1.648    0.03%       0.264      0.465
+     PAG                  -0.007      -0.151      -1.292    0.03%      -0.263     -0.075     -0.002
+            3888.000       0.099       0.328       1.232    0.03%       0.075      0.256
 
      THE STANDARD ERRORS OF THE MODEL PARAMETER ESTIMATES MAY NOT BE
      TRUSTWORTHY FOR SOME PARAMETERS DUE TO A NON-POSITIVE DEFINITE
      FIRST-ORDER DERIVATIVE PRODUCT MATRIX.  THIS MAY BE DUE TO THE STARTING
      VALUES BUT MAY ALSO BE AN INDICATION OF MODEL NONIDENTIFICATION.  THE
-     CONDITION NUMBER IS      -0.201D-16.  PROBLEM INVOLVING THE FOLLOWING PARAMETER:
+     CONDITION NUMBER IS      -0.116D-15.  PROBLEM INVOLVING THE FOLLOWING PARAMETER:
      Parameter 28, %WITHIN%: AAG
 
      THE NONIDENTIFICATION IS MOST LIKELY DUE TO HAVING MORE PARAMETERS THAN THE
@@ -140,21 +140,21 @@ Number of Free Parameters                       44
 
 Loglikelihood
 
-          H0 Value                         644.262
-          H0 Scaling Correction Factor      9.2849
+          H0 Value                        5292.376
+          H0 Scaling Correction Factor      7.6615
             for MLR
-          H1 Value                        2439.857
+          H1 Value                        6768.165
 
 Information Criteria
 
-          Akaike (AIC)                   -1200.525
-          Bayesian (BIC)                  -924.836
-          Sample-Size Adjusted BIC       -1064.648
+          Akaike (AIC)                  -10496.752
+          Bayesian (BIC)                -10221.064
+          Sample-Size Adjusted BIC      -10360.875
             (n* = (n + 2) / 24)
 
 Chi-Square Test of Model Fit
 
-          Value                           3591.189*
+          Value                           2951.578*
           Degrees of Freedom                    36
           P-Value                           0.0000
           Scaling Correction Factor      Undefined
@@ -167,23 +167,23 @@ Chi-Square Test of Model Fit
 
 RMSEA (Root Mean Square Error Of Approximation)
 
-          Estimate                           0.159
+          Estimate                           0.144
 
 CFI/TLI
 
-          CFI                                0.018
-          TLI                               -0.527
+          CFI                                0.000
+          TLI                               -0.585
 
 Chi-Square Test of Model Fit for the Baseline Model
 
-          Value                           3678.142
+          Value                           2917.195
           Degrees of Freedom                    56
           P-Value                           0.0000
 
 SRMR (Standardized Root Mean Square Residual)
 
-          Value for Within                   0.065
-          Value for Between                  0.427
+          Value for Within                   0.047
+          Value for Between                  0.352
 
 
 
@@ -195,68 +195,68 @@ MODEL RESULTS
 Within Level
 
  PHIPP    WITH
-    PREC               0.015      0.002      6.513      0.000
-    PCC                0.022      0.003      8.226      0.000
-    MPFC               0.024      0.002      9.940      0.000
-    PHC                0.011      0.001      8.406      0.000
-    RSC                0.011      0.002      6.737      0.000
-    AAG                0.026      0.002     10.905      0.000
-    PAG                0.021      0.003      7.498      0.000
+    PREC               0.009      0.001      6.864      0.000
+    PCC                0.010      0.001      8.767      0.000
+    MPFC               0.013      0.002      8.124      0.000
+    PHC                0.005      0.001      6.778      0.000
+    RSC                0.005      0.001      5.689      0.000
+    AAG                0.015      0.002      8.715      0.000
+    PAG                0.007      0.002      4.181      0.000
 
  PREC     WITH
-    PCC                0.037      0.004      9.225      0.000
-    MPFC               0.026      0.004      6.933      0.000
-    PHC                0.016      0.002      7.999      0.000
-    RSC                0.021      0.003      6.917      0.000
-    AAG                0.044      0.005      8.996      0.000
-    PAG                0.034      0.004      8.761      0.000
+    PCC                0.019      0.002      8.299      0.000
+    MPFC               0.017      0.002      7.481      0.000
+    PHC                0.009      0.001      6.346      0.000
+    RSC                0.011      0.002      6.002      0.000
+    AAG                0.028      0.004      7.878      0.000
+    PAG                0.018      0.002      7.162      0.000
 
  PCC      WITH
-    MPFC               0.048      0.004     10.988      0.000
-    PHC                0.019      0.002      8.004      0.000
-    RSC                0.025      0.003      7.832      0.000
-    AAG                0.062      0.007      9.404      0.000
-    PAG                0.043      0.005      7.933      0.000
+    MPFC               0.025      0.003      9.664      0.000
+    PHC                0.007      0.001      5.473      0.000
+    RSC                0.010      0.002      5.826      0.000
+    AAG                0.033      0.003      9.940      0.000
+    PAG                0.014      0.003      5.038      0.000
 
  MPFC     WITH
-    PHC                0.011      0.002      4.685      0.000
-    RSC                0.017      0.003      5.135      0.000
-    AAG                0.060      0.006     10.159      0.000
-    PAG                0.021      0.005      3.909      0.000
+    PHC                0.006      0.001      3.842      0.000
+    RSC                0.008      0.002      4.901      0.000
+    AAG                0.034      0.004      9.195      0.000
+    PAG                0.006      0.003      2.177      0.030
 
  PHC      WITH
-    RSC                0.019      0.002     11.554      0.000
-    AAG                0.020      0.003      6.237      0.000
-    PAG                0.031      0.003      9.697      0.000
+    RSC                0.010      0.001     10.133      0.000
+    AAG                0.010      0.002      4.687      0.000
+    PAG                0.019      0.003      7.170      0.000
 
  RSC      WITH
-    AAG                0.032      0.005      6.782      0.000
-    PAG                0.032      0.004      9.100      0.000
+    AAG                0.017      0.003      5.571      0.000
+    PAG                0.017      0.002      9.501      0.000
 
  AAG      WITH
-    PAG                0.051      0.006      8.112      0.000
+    PAG                0.032      0.005      6.976      0.000
 
  Variances
-    PHIPP              0.033      0.002     17.417      0.000
-    PREC               0.061      0.005     11.605      0.000
-    PCC                0.091      0.009     10.291      0.000
-    MPFC               0.112      0.009     12.904      0.000
-    PHC                0.039      0.002     16.281      0.000
-    RSC                0.049      0.003     14.417      0.000
-    AAG                0.154      0.017      9.288      0.000
-    PAG                0.127      0.009     13.895      0.000
+    PHIPP              0.024      0.001     18.917      0.000
+    PREC               0.044      0.004     12.110      0.000
+    PCC                0.044      0.004     12.703      0.000
+    MPFC               0.077      0.005     15.063      0.000
+    PHC                0.030      0.002     13.069      0.000
+    RSC                0.026      0.002     12.661      0.000
+    AAG                0.118      0.009     12.899      0.000
+    PAG                0.096      0.007     14.161      0.000
 
 Between Level
 
  Means
-    PHIPP              0.034      0.007      4.572      0.000
-    PREC               0.068      0.014      4.720      0.000
-    PCC                0.119      0.026      4.555      0.000
-    MPFC               0.000      0.020     -0.014      0.989
-    PHC                0.046      0.014      3.387      0.001
-    RSC                0.113      0.017      6.493      0.000
-    AAG                0.082      0.038      2.141      0.032
-    PAG                0.060      0.019      3.124      0.002
+    PHIPP              0.077      0.005     15.438      0.000
+    PREC               0.115      0.015      7.811      0.000
+    PCC                0.144      0.016      9.015      0.000
+    MPFC               0.135      0.011     12.722      0.000
+    PHC               -0.028      0.013     -2.119      0.034
+    RSC                0.049      0.012      3.974      0.000
+    AAG                0.188      0.028      6.639      0.000
+    PAG               -0.007      0.022     -0.302      0.763
 
  Variances
     PHIPP              0.000      0.000    999.000    999.000
@@ -271,7 +271,7 @@ Between Level
 
 QUALITY OF NUMERICAL RESULTS
 
-     Condition Number for the Information Matrix             -0.201E-16
+     Condition Number for the Information Matrix             -0.116E-15
        (ratio of smallest to largest eigenvalue)
 
 
@@ -368,11 +368,11 @@ TECHNICAL 1 OUTPUT
            THETA
               PHIPP         PREC          PCC           MPFC          PHC
               ________      ________      ________      ________      ________
- PHIPP          0.017
- PREC           0.000         0.031
- PCC            0.000         0.000         0.048
- MPFC           0.000         0.000         0.000         0.057
- PHC            0.000         0.000         0.000         0.000         0.020
+ PHIPP          0.012
+ PREC           0.000         0.023
+ PCC            0.000         0.000         0.024
+ MPFC           0.000         0.000         0.000         0.039
+ PHC            0.000         0.000         0.000         0.000         0.016
  RSC            0.000         0.000         0.000         0.000         0.000
  AAG            0.000         0.000         0.000         0.000         0.000
  PAG            0.000         0.000         0.000         0.000         0.000
@@ -381,9 +381,9 @@ TECHNICAL 1 OUTPUT
            THETA
               RSC           AAG           PAG
               ________      ________      ________
- RSC            0.026
- AAG            0.000         0.081
- PAG            0.000         0.000         0.064
+ RSC            0.014
+ AAG            0.000         0.062
+ PAG            0.000         0.000         0.050
 
 
      STARTING VALUES FOR BETWEEN
@@ -392,13 +392,13 @@ TECHNICAL 1 OUTPUT
            NU
               PHIPP         PREC          PCC           MPFC          PHC
               ________      ________      ________      ________      ________
-                0.034         0.068         0.119         0.000         0.046
+                0.077         0.116         0.144         0.135        -0.028
 
 
            NU
               RSC           AAG           PAG
               ________      ________      ________
-                0.113         0.082         0.060
+                0.049         0.188        -0.007
 
 
            THETA
@@ -422,9 +422,9 @@ TECHNICAL 1 OUTPUT
  PAG            0.000         0.000         0.000
 
 
-     Beginning Time:  15:41:30
-        Ending Time:  15:41:31
-       Elapsed Time:  00:00:01
+     Beginning Time:  12:43:14
+        Ending Time:  12:43:14
+       Elapsed Time:  00:00:00
 
 
 

@@ -2,6 +2,7 @@
 
 library(tidyverse)
 library(corrr)
+library(MplusAutomation)
 
 col.names <- c("subject", "pHipp", "PREC", "PCC", "MPFC", "PHC", "RSC", "aAG", "pAG", "SceCorr", "ColCorr", "EmoCorr")
 
@@ -17,7 +18,11 @@ corTbl %>%
   print()
 
 # taken from Mplus
-ICCs <- c(0.037, 0.085, 0.193, 0.087, 0.124, 0.156, 0.254, 0.077, 0.208, 0.145, 0.119)
+M <- readModels(target = 'mplus/')
+
+M$data.all_modelType.Measurement_measureModel.SingleFactor.out$data_summary$ICC %>%
+  as_tibble() %>%
+  mutate(variable = str_to_lower(variable)) -> ICCs
 
 df %>%
   summarise(across(-subject, .fns = c(mean, sd, min, max))) %>%
@@ -25,6 +30,15 @@ df %>%
   mutate(stat = factor(stat, labels = c("mean", "sd", "min", "max"))) %>%
   pivot_wider(names_from = stat, values_from = "value") %>%
   left_join(., corTbl, by = "rowname") %>%
-  add_column(ICC = ICCs, .after = "max") -> Tbl
+  mutate(rowname = str_to_lower(rowname)) %>%
+  left_join(., ICCs, by = c("rowname" = "variable")) %>%
+  select(rowname, mean, sd, min, max, ICC, pHipp:EmoCorr) %>%
+  mutate(rowname = str_replace(rowname, 'scecorr', 'scene')) %>%
+  mutate(rowname = str_replace(rowname, 'colcorr', 'color')) %>%
+  mutate(rowname = str_replace(rowname, 'emocorr', 'sound')) %>%
+  mutate(rowname = str_to_upper(rowname)) %>%
+  rename(SCENE = SceCorr) %>%
+  rename(COLOR = ColCorr) %>%
+  rename(SOUND = EmoCorr) -> Tbl
 
-write_csv(Tbl, "Table1.csv")
+write_csv(Tbl, "intermediate/05_Table1.csv", na = '')

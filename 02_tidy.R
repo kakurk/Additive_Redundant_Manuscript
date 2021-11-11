@@ -29,7 +29,7 @@ calc_quality <- function(x, thresh) {
 # define full paths to key directories and files
 
 root <- "~/Desktop/Additive_Redundant_Manuscript/"
-extracted_data_file <- file.path(root, "intermediate", "01_Extracted_ROI_data_4s.csv")
+extracted_data_file <- file.path(root, "intermediate", "01_Extracted_ROI_data_1s.csv")
 orbit_data_dir <- file.path(root, "orbit-data")
 SS_exclusions_file <- file.path(orbit_data_dir, "derivs", "excluded-runs-elife.csv")
 behav_file <- file.path(orbit_data_dir, "behavior", "AllData_OrbitfMRI-behavior.csv")
@@ -119,5 +119,5 @@ roi_df %>%
 # write -------------------------------------------------------------------
 
 cat("Writing:\n")
-fullFile <- file.path(root, 'intermediate', 'tidy_roi_data_4s.dat')
+fullFile <- file.path(root, 'intermediate', 'tidy_roi_data_1s.dat')
 write_delim(roi_df, fullFile, col_names = F)
