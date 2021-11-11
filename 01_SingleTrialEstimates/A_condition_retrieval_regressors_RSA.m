@@ -18,34 +18,34 @@ function [] = condition_retrieval_regressors_RSA
 
 clearvars; clc;
 
-b.scriptdir = pwd;
-addpath(b.scriptdir);
+% the base of the analysis directory
+rootdir = fileparts(fileparts(mfilename('fullpath')));
 
-%where is regressor information (behavioral csv file)
-b.behavDir  = '/gsfs0/data/ritcheym/data/fmri/orbit/data/behavior/';
+% path to the orbit data directory
+b.orbitDir = fullfile(rootdir, 'orbit-data')
 
 % load in behavioral data:
-behavFile = [b.behavDir 'AllData_OrbitfMRI-behavior.csv'];
-allData = readtable(behavFile);
+behavFile = fullfile(b.orbitDir, 'behavior', 'AllData_OrbitfMRI-behavior.csv');
+allData   = readtable(behavFile);
 
 % define columns in allData for onset:
-onsCols = [30]; %columns in raw data csv file for retrieval event onsets
+onsCols   = [30]; %columns in raw data csv file for retrieval event onsets
 removeTRs = 116; %116 encoding TRs
 
 %where to save regressor csv files:
-b.saveDir   = '/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/regressors/';
+b.saveDir = fullfile(rootdir, 'orbit-rsa-dir', 'regressors');
 
 % load in file from exclude runs to determine which runs will be modeled
 % for each subject:
 % 1  = valid run
 % -1 = never processed - excluded before data processing
 % 0  = excluded after data processing due to motion
-myRuns = readtable('/gsfs0/data/ritcheym/data/fmri/orbit/data/derivs/excluded-runs-elife.csv');
+myRuns   = readtable(fullfile(b.orbitDir, 'derivs', 'excluded-runs-elife.csv'));
 subjects = table2cell(myRuns(:,1))';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regressor parameters
-names = {'Retrieval'};
+names       = {'Retrieval'};
 evDurations = zeros(1,length(names)); %duration to assign to events, per regressor
 %evDurations = repmat(4,1,length(names)); %duration to assign to events, per regressor
 
@@ -54,16 +54,16 @@ evDurations = zeros(1,length(names)); %duration to assign to events, per regress
 subCount = 0;
 for i = 1:length(subjects)
     
-    %determine if include this subject (col 8 marks is subject valid, overall):
+    % determine if include this subject (col 8 marks is subject valid, overall):
     curRuns  = table2cell(myRuns(i,:));
     taskRuns = cell2mat(curRuns(2:7)); %6 orbit runs
-    
-    %get numbers of valid memory runs:
+
+    % get numbers of valid memory runs:
     b.memoryRuns = find(taskRuns > -1); %NOTE these are the original block numbers that we ran - important
     % for getting the right onsets
-    %now remove any runs that were excluded before data processing
+    % now remove any runs that were excluded before data processing
     taskRuns(taskRuns == -1) = [];
-    
+
     % only run if have at least 4/6 memory runs
     if curRuns{8} == 1 % -------------------------------------------
         
@@ -72,13 +72,13 @@ for i = 1:length(subjects)
         fprintf('\nCreating task regressors for sub-%s...\n',subjects{i});
         b.curSubj = subjects{i};
         
-        %make folder for subject's regressors:
-        subjDir = [b.saveDir b.curSubj filesep];
+        % make folder for subject's regressors:
+        subjDir = fullfile(b.saveDir, b.curSubj);
         if ~exist(subjDir), mkdir(subjDir); end
         
-        %get behavioral data:
+        % get behavioral data:
         % subject number in string:
-        curNum = str2num(cell2mat(regexp(b.curSubj, '\d*', 'Match')));
+        curNum    = str2num(cell2mat(regexp(b.curSubj, '\d*', 'Match')));
         behavData = allData(table2array(allData(:,1)) == curNum,:);
         
         %% loop through memory task runs ------------------------------------------
@@ -90,42 +90,43 @@ for i = 1:length(subjects)
 
                 runCount = runCount + 1;
                 
-                %NOTE - for subjects who are missing runs BEFORE PROCESSING, the scan runs are always
-                %labeled continuously from 1 - e.g. runs will be 1-5 if subject lost run 6 or
-                %run 4 before processing (marked as -1). So, it's important to grab the
-                %correct onsets according to the ORIGINAL block IDs.
+                % NOTE - for subjects who are missing runs BEFORE PROCESSING, the scan runs are always
+                % labeled continuously from 1 - e.g. runs will be 1-5 if subject lost run 6 or
+                % run 4 before processing (marked as -1). So, it's important to grab the
+                % correct onsets according to the ORIGINAL block IDs.
                 blkNum = b.memoryRuns(r);
                 
-                %now get behav data that corresponds to this block:
+                % now get behav data that corresponds to this block:
                 clear curData
                 curData = behavData(table2array(behavData(:,4))==blkNum,:);
                 curData = table2cell(curData);
                 
-                %define output variables:
-                onsets = cell([1 length(names)]); durations = cell([1 length(names)]);
+                % define output variables:
+                onsets    = cell([1 length(names)]); 
+		durations = cell([1 length(names)]);
                 
                 % ----------------------------------------------------------------------- %
                 for reg = 1:length(onsCols) % loop through each trial type ----
                     
                     onsCol = onsCols(reg);
                     %sort curData by current onsets and valence:
-                    curData = sortrows(curData,onsCol);
+                    curData = sortrows(curData, onsCol);
                     clear curOnsets
                     
                     %add onsets
                     curOnsets      = cell2mat(curData(:,onsCol));
                     % adjust onset times for encoding now removed
-                    curOnsets = curOnsets - (removeTRs*1.5);
+                    curOnsets      = curOnsets - (removeTRs*1.5);
                     onsets{reg}    = curOnsets';
-                    durations{reg} = repmat(evDurations(reg),1,length(curOnsets));
+                    durations{reg} = repmat(evDurations(reg), 1, length(curOnsets));
 		    
                 end %end of loop through onset cols (regs) -------------------------------
                 
                 % ---------------------------------------------------------------------
                 % save .mat file for this run:
-                fileName = [subjDir b.curSubj '_task-Retrieval_run-0' num2str(r) '_task-onsets_RSA.mat'];
+                fileName = fullfile(subjDir, [b.curSubj '_task-Retrieval_run-0' num2str(r) '_task-onsets_RSA.mat']);
 		if(~exist(fileName, 'file'))
-                	save(fileName,'names','onsets','durations');
+                	save(fileName, 'names', 'onsets', 'durations');
 		end
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 

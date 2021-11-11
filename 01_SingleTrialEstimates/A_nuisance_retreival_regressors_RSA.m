@@ -16,23 +16,22 @@ function [] = nuisance_retrieval_regressors_RSA
 
 clearvars; clc;
 
-b.scriptdir = pwd;
-addpath(b.scriptdir);
+rootdir = fileparts(fileparts(mfilename('fullpath')));
 
 addpath('/gsfs0/data/cooperrn/Documents');
 
 %where is regressor information (.tsv files from fmriprep)
-b.derivDir  = '/gsfs0/data/ritcheym/data/fmri/orbit/data/derivs/fmriprep/';
+b.derivDir  = fullfile(rootdir, 'orbit-data', 'derivs', 'fmriprep');
 
 %where to save regressor csv files:
-b.saveDir   = '/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/regressors/';
+b.saveDir   = fullfile(rootdir, 'orbit-rsa-dir', 'regressors');
 
 % load in file from exclude runs to determine which runs will be modeled
 % for each subject:
 % 1  = valid run
 % -1 = never processed - excluded before data processing
 % 0  = excluded after data processing due to motion
-myRuns = readtable('/gsfs0/data/ritcheym/data/fmri/orbit/data/derivs/excluded-runs-elife.csv');
+myRuns   = readtable(fullfile(rootdir, 'orbit-data', 'derivs', 'excluded-runs-elife.csv');
 subjects = table2cell(myRuns(:,1))';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,7 +44,7 @@ numScans = 350; %retrieval TRs per run -- note fmriprep has nuisance regressors 
 
 spike_threshold = 0.6; % note that this is double the thrshold used to evaluate run (at least 80% < 0.3mm).
 
-fprintf('\nCreating nuisance regressors including spikes > %0.2f mm...\n',spike_threshold);
+fprintf('\nCreating nuisance regressors including spikes > %0.2f mm...\n', spike_threshold);
 
 %% loop through subjects -----------------------------------------------
 for i = 1:length(subjects)
@@ -64,7 +63,7 @@ for i = 1:length(subjects)
         b.curSubj = subjects{i};
 
         %make folder for subject's regressors:
-        subjDir = [b.saveDir b.curSubj filesep];
+        subjDir = fullfile(b.saveDir, b.curSubj);
         if ~exist(subjDir,'dir'), mkdir(subjDir); end
 
         %% loop through runs
@@ -72,32 +71,32 @@ for i = 1:length(subjects)
 
         for r = 1:length(taskRuns)
             
-	    %only process runs that are still valid after motion exclusion:
+	    % only process runs that are still valid after motion exclusion:
             if taskRuns(r) == 1
 
                 % create motion regressors -----------------------------------------------
-                motionFile = [b.derivDir b.curSubj '/func/' b.curSubj '_task-Memory_run-0' num2str(r) '_bold_confounds.tsv'];
-                [~,~,motionData] = tsvread(motionFile);
+                motionFile = fullfile(b.derivDir, b.curSubj, 'func', [b.curSubj '_task-Memory_run-0' num2str(r) '_bold_confounds.tsv']);
+                [~, ~, motionData] = tsvread(motionFile);
                 
-                %find regressor columns:
-                regCols = ismember(motionData(1,:),motnames); %col number in tsv file per run from fmriprep (6 motion regressors, FD, and acompcor00)
+                % find regressor columns:
+                regCols = ismember(motionData(1,:), motnames); %col number in tsv file per run from fmriprep (6 motion regressors, FD, and acompcor00)
                 
-                regressorData = motionData(2:end,regCols);
-                %replace first FD value (n/a) with 0, or mean also fine (found this recommended)
+                regressorData = motionData(2:end, regCols);
+                % replace first FD value (n/a) with 0, or mean also fine (found this recommended)
                 regressorData(1,1) = {'0'};
                 
                 fclose('all');
                 
-                %convert to double format
+                % convert to double format
                 motionNew = [];
                 regressorData(1:(size(regressorData,1)-numScans),:) = []; %remove encoding TRs
                 for ev = 1:numScans
-                    for c = 1:size(regressorData,2)
-                        motionNew(ev,c) = str2num(regressorData{ev,c});
+                    for c = 1:size(regressorData, 2)
+                        motionNew(ev, c) = str2num(regressorData{ev,c});
                     end
                 end
                 
-                %add to motion matrix if concatenating:
+                % add to motion matrix if concatenating:
                 R = motionNew;
                 
                 % now create spike regressors for this subject (first column = FD)
@@ -119,9 +118,8 @@ for i = 1:length(subjects)
                 R = [R, spike_regs];
 
                 % now save out text file for concatenated motion regressors -------------------------------
-                fileName = [subjDir b.curSubj '_task-Retrieval_run-0' num2str(r) '_nuisance_regressors.mat'];
+                fileName = fullfile(subjDir, [b.curSubj '_task-Retrieval_run-0' num2str(r) '_nuisance_regressors.mat']);
                 if(~exist(fileName, 'file'))
-		     keyboard
 		     save(fileName, 'R','names');
 		end
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

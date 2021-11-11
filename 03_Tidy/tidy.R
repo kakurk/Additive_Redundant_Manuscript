@@ -119,5 +119,5 @@ roi_df %>%
 # write -------------------------------------------------------------------
 
 cat("Writing:\n")
-fullFile <- file.path(root, 'intermediate', 'tidy_roi_data_1s.dat')
+fullFile <- file.path(root, 'intermediate', '03_tidy_roi_data_1s.dat')
 write_delim(roi_df, fullFile, col_names = F)

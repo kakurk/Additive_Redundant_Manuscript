@@ -15,7 +15,7 @@ spm_jobman('initcfg')
 spm('defaults', 'FMRI');
 
 %first level models for RSA:
-modDir = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/first-level-4s/unsmoothed/']; 
+modDir = fullfile(rootdir, 'orbit-rsa-dir', 'first-level', 'unsmoothed');
 
 % SUBJECTS
 % define all subjects who have regressors:
@@ -32,7 +32,7 @@ curSubj = subjs{i};
 spmDir  = [modDir curSubj];
 
 % where should my models go?
-outDir  = ['/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/Retrieval/RSA/single-trial-4s/unsmoothed/' curSubj '/'];
+outDir  = fullfile(rootdir, 'st_estimates_1s', curSubj);
 
 %create out directory if it does not exist
 if ~exist(outDir, 'dir')
@@ -42,9 +42,9 @@ end
 %% Load SPM.mat file and get info
 
 % Load pre-existing SPM file containing model information
-fprintf('\nLoading univariate model for %s:\n%s\n', curSubj, [spmDir, '/SPM.mat']);
-if exist([spmDir '/SPM.mat'],'file')
-    origSPM = load([spmDir '/SPM.mat']);
+fprintf('\nLoading univariate model for %s:\n%s\n', curSubj, fullfile(spmDir, 'SPM.mat'));
+if exist(fullfile(spmDir, 'SPM.mat'),'file')
+    origSPM = load(fullfile(spmDir, 'SPM.mat'));
 else
     error('Cannot find SPM.mat file.');
 end
@@ -188,7 +188,7 @@ matlabbatch{1}.spm.stats.fmri_spec.bases.hrf.derivs = [0 0];
 matlabbatch{1}.spm.stats.fmri_spec.volt             = 1;
 matlabbatch{1}.spm.stats.fmri_spec.global           = 'None';
 matlabbatch{1}.spm.stats.fmri_spec.mthresh          = -Inf;
-matlabbatch{1}.spm.stats.fmri_spec.mask 	    = {'/gsfs0/data/ritcheym/data/fmri/orbit/analysis/orbit/myROIs/PMAT-MNI-space/wb_graymatter_mask.nii,1'};
+matlabbatch{1}.spm.stats.fmri_spec.mask 	    = {fullfile(rootdir, 'rois', wb_graymatter_mask.nii,1')};
 matlabbatch{1}.spm.stats.fmri_spec.cvi              = 'AR(1)';
 
 % add model-specific files
