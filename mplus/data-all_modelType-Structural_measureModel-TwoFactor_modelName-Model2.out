@@ -1,10 +1,10 @@
 Mplus VERSION 8.2 (Linux)
 MUTHEN & MUTHEN
-11/05/2021  12:39 PM
+01/04/2022   5:04 PM
 
 INPUT INSTRUCTIONS
 
-  TITLE: Bifactor Model 2: PREC
+  TITLE: Two Factor Model 2: PREC
   DATA: FILE is tidy_roi_data.dat;
   VARIABLE:
     NAMES are subject pHipp PREC PCC MPFC PHC RSC aAG pAG SceCorr ColCorr EmoCorr;
@@ -46,7 +46,7 @@ INPUT READING TERMINATED NORMALLY
 
 
 
-Bifactor Model 2: PREC
+Two Factor Model 2: PREC
 
 SUMMARY OF ANALYSIS
 
@@ -540,9 +540,9 @@ QUALITY OF NUMERICAL RESULTS
        (ratio of smallest to largest eigenvalue)
 
 
-     Beginning Time:  12:39:30
-        Ending Time:  12:40:01
-       Elapsed Time:  00:00:31
+     Beginning Time:  17:04:12
+        Ending Time:  17:04:44
+       Elapsed Time:  00:00:32
 
 
 

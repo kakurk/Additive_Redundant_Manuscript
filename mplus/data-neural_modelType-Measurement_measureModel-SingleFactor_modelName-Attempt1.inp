@@ -20,4 +20,4 @@ PHC WITH RSC-pAG;
 RSC WITH aAG pAG;
 aAG WITH pAG;
 Output:
-sampstat modindices;
+sampstat stdyx;
