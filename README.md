@@ -30,7 +30,7 @@ Step 3: Tidy Data
 - Take Extracted Single Trial Estimates and appends behavioral data 'tidying' the data along the way  
 - Assumes behavioral data are stored in a local directory: `orbit-data/`  
 - See: `03_Tidy/tidy.R`  
-- See: `mplus/tidy_roi_data.dat`  
+- See: `intermediate/03_tidy_roi_data_1s.dat`  
 
 Step 4: MPLUS Modeling
 - Run a series of SEM models in MPLUS. See README in `mplus/`  
