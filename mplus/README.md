@@ -23,6 +23,3 @@ Model Name Long Descriptions:
 - `Model6`: contains all of the paths from `Model0`, with the addition of a unique path from the __RSC__ --> __MemoryQuality__  
 - `Model7`: contains all of the paths from `Model0`, with the addition of a unique path from the __aAG__ --> __MemoryQuality__  
 - `Model8`: contains all of the paths from `Model0`, with the addition of a unique path from the __pAG__ --> __MemoryQuality__  
-- `Model9`: contains all of the paths from `Model0`, with the addition of a unique path from the __MPFC__ --> __MemoryQuality__  AND __PHC__ --> __MemoryQuality__  
-- `Attempt1`: refers to the first attempt of the SingleFactor measurement model (i.e., before adding in the additional residual covariance parameter)  
-- `Final`: refers to the final SingleFactor measurement model (i.e., the one that contains the residual covariance parameter)  
