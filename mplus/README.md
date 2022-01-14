@@ -23,3 +23,5 @@ Model Name Long Descriptions:
 - `Model6`: contains all of the paths from `Model0`, with the addition of a unique path from the __RSC__ --> __MemoryQuality__  
 - `Model7`: contains all of the paths from `Model0`, with the addition of a unique path from the __aAG__ --> __MemoryQuality__  
 - `Model8`: contains all of the paths from `Model0`, with the addition of a unique path from the __pAG__ --> __MemoryQuality__  
+
+The neural measurement models were fit using the MLR estimator in MPlus. We note here that we received a warning from MPlus concerning a non-positive definite first-order derivative product matrix. This is most likely due to having a larger number of parameters than samples at the between-subjects level. This warning should not influence parameter and model fit estimates for our purposes. See https://statmodel.com/download/ConditionNumber.pdf for more information.
