@@ -7,7 +7,7 @@ This directory contains data and syntax files for running all SEMs in MPLUS. See
 
 - _DATA_: can take on the values `behav`, `neural`, or `all` depending on the subset of data that is included in the model  
 - _MODELTYPE_: can take on the values `null`, `Measurement`, `Structural`  
-- _MEASUREMODEL_: can take on the values `null`, `SingleFactor`, `SingleFactor_NoResidCov`, `TwoFactor`, or `MetricInvariance`  
+- _MEASUREMODEL_: can take on the values `null`, `SingleFactor`, `TwoFactor`, or `MetricInvariance`  
 - _MODELNAME_: an additional, short descriptor to differentiate models. See below for more information.  
 
 Model Name Long Descriptions:  
