@@ -1,4 +1,4 @@
-# visualize the correlation matrix
+# Create Table 1: Descriptive Statistics
 
 library(tidyverse)
 library(corrr)
