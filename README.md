@@ -1,4 +1,4 @@
-# Additive_Redundant_Manuscript
+# Integrating region- and network-level contributions to episodic recollection using multilevel structural equation modeling
 Repository Home of the MemoLab's manuscript: 
 
 Kurkela, K., Cooper, R., Ryu, E., & Richey, M. (in press). Integrating region- and network-level contributions to episodic recollection using multilevel structural equation modeling.
