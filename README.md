@@ -1,5 +1,7 @@
 # Additive_Redundant_Manuscript
-Repository Home of the MemoLab's Additive Redundant Manuscript.
+Repository Home of the MemoLab's manuscript: 
+
+Kurkela, K., Cooper, R., Ryu, E., & Richey, M. (in press). Integrating region- and network-level contributions to episodic recollection using multilevel structural equation modeling.
 
 This repository tries to follow the [tidyverse's style guide](https://style.tidyverse.org/index.html) and [BIDS formatting](https://bids.neuroimaging.io/)  
 
