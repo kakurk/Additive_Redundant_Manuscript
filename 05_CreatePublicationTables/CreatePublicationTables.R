@@ -12,7 +12,7 @@ options(knitr.kable.NA = "")
 
 createModelCompTbl <- function(unformatted_model_summary_tbl, Model1Title) {
   # Create Model Comparisons Table
-  
+
   unformatted_model_summary_tbl %>%
     select(Title, ChiSqM_Value, ChiSqM_DF, ChiSqM_PValue, WaldChiSq_Value, WaldChiSq_DF, WaldChiSq_PValue, CFI, TLI, RMSEA_Estimate, SRMR.Within, SRMR.Between) %>%
     mutate(ChiSqM_PValue = format.pval(ChiSqM_PValue, eps = .001)) %>%
@@ -93,7 +93,8 @@ ModelComp_col_names <- c("Title", "Chi-square", paste0("Wald's Test", footnote_m
 # A summary of model fit statistics
 model_summaries %>%
   filter(str_detect(Filename, "TwoFactor_modelName-Model[0-8].out")) %>%
-  createModelCompTbl(Model1Title = "Bifactor Model 0: Both Subnetworks -> MemQ") -> twofactor_summary_tbl
+  createModelCompTbl(Model1Title = "Model 0: Baseline") %>%
+  mutate(Title = str_remove(Title, 'Two Factor ')) -> twofactor_summary_tbl
 
 # write to a csv file
 write_csv(x = twofactor_summary_tbl, path = "intermediate/05_type-ModelComparisons_model-TwoFactor_tbl.csv", na = "")
