@@ -9,7 +9,7 @@ col.names <- c("subject", "pHipp", "Prec", "PCC", "MPFC", "PHC", "RSC", "aAG", "
 df <- read_delim("mplus/tidy_roi_data.dat", delim = " ", col_names = col.names)
 
 df %>%
-  select(-subject) %>%
+  select(RSC, PHC, pAG, aAG, pHipp, Prec, PCC, MPFC, SCENE, COLOR, SOUND) %>%
   correlate() %>%
   shave() -> corTbl
 
@@ -23,7 +23,8 @@ M$data.all_modelType.Measurement_measureModel.SingleFactor.out$data_summary$ICC 
          variable = str_replace(variable, 'colcorr', 'color'),
          variable = str_replace(variable, 'emocorr', 'sound')) -> ICCs
 
-row.names <- col.names[-1]
+row.names <- c('RSC','PHC','pAG','aAG','pHipp','Prec','PCC','MPFC','SCENE','COLOR','SOUND')
+row.order <- c(5,6,7,8,2,1,4,3,9,10,11)
 
 df %>%
   summarise(across(-subject, .fns = c(mean, sd, min, max))) %>%
@@ -33,7 +34,9 @@ df %>%
   left_join(., corTbl, by = "rowname") %>%
   mutate(rowname = str_to_lower(rowname)) %>%
   left_join(., ICCs, by = c("rowname" = "variable")) %>%
-  select(rowname, mean, sd, min, max, ICC, pHipp:SOUND) %>%
+  add_column(row.order) %>%
+  arrange(row.order) %>%
+  select(rowname, mean, sd, min, max, ICC, RSC:COLOR) %>%
   mutate(rowname = row.names) -> Tbl
 
 write_csv(Tbl, "intermediate/05_Table1.csv", na = '')
